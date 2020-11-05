@@ -1,12 +1,12 @@
 export default {
   siteMetadata: {
-    title: "Next.js Starter Blog",
+    title: "Bantu Temu",
     author: {
-      name: "Jose Felix",
+      name: "Arif Ikhsanudin",
       summary: "who works building clean user interfaces with React.",
     },
     description: "A blog created with Next.js and Tailwind.css",
-    siteUrl: "https://nextjs-starter-blog-demo.netlify.app/",
+    siteUrl: "https://bantutemu.now.sh/",
     language: "en-US",
     social: {
       twitter: "Jose_R_Felix",
