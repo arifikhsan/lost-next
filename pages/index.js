@@ -1,42 +1,40 @@
 import Link from "next/link";
 
 import Layout from "components/Layout";
-import Bio from "components/Bio";
 import SEO from "components/Seo";
-import { getSortedPosts } from "utils/posts";
+import { getSiteMetaData } from "utils/helpers";
 
-export default function Home({ posts }) {
+export default function Home() {
+  const siteMetadata = getSiteMetaData();
+  const metaDescription = siteMetadata.description || "";
+  const metaTitle = siteMetadata.titleDense || "";
+
+  const bantuTemu = <span className="font-semibold">{metaTitle}</span>;
+
   return (
     <Layout>
-      <SEO title="All posts" />
-      <Bio className="my-14" />
-      {posts.map(({ frontmatter: { title, description, date }, slug }) => (
-        <article key={slug}>
-          <header className="mb-2">
-            <h3 className="mb-2">
-              <Link href={"/post/[slug]"} as={`/post/${slug}`}>
-                <a className="text-4xl font-bold text-blue-600 font-display">
-                  {title}
-                </a>
-              </Link>
-            </h3>
-            <span className="text-sm">{date}</span>
-          </header>
-          <section>
-            <p className="mb-8 text-lg">{description}</p>
-          </section>
-        </article>
-      ))}
+      <SEO title="Website untuk melaporkan barang yang hilang atau ditemukan" />
+      <div className="grid gap-8">
+        <div className="lg:text-center">
+          <h1 className="text-3xl font-bold text-blue-500 font-display">
+            {metaDescription}
+          </h1>
+        </div>
+        <div>stuff goes brrrr</div>
+        <div className="">
+          <h1 className="text-2xl text-blue-500 font-display">
+            Kehilangan uang, dompet, sim, ktp, atau kawan-kawannya? Segera lapor
+            di {bantuTemu}! semoga segera ditemukan.
+          </h1>
+        </div>
+        <div className="">
+          <h1 className="text-2xl text-blue-500 font-display">
+            Atau menemukan barang berharga yang tidak tahu pemiliknya siapa?
+            Segera lapor juga di {bantuTemu}! supaya pemiliknya dapat segera
+            ketemu.
+          </h1>
+        </div>
+      </div>
     </Layout>
   );
-}
-
-export async function getStaticProps() {
-  const posts = getSortedPosts();
-
-  return {
-    props: {
-      posts,
-    },
-  };
 }

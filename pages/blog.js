@@ -3,6 +3,7 @@ import Link from "next/link";
 import Layout from "components/Layout";
 import SEO from "components/Seo";
 import { getSortedPosts } from "utils/posts";
+import Bio from "components/Bio";
 
 export default function Blog({ posts }) {
   return (
@@ -27,6 +28,7 @@ export default function Blog({ posts }) {
           </article>
         ))}
       </div>
+      <Bio className="my-10" />
     </Layout>
   );
 }
