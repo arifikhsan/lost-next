@@ -2,18 +2,18 @@
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
 
-a {
+/* a {
   @apply text-neon-orange;
-}
+} */
 
-a:hover {
+/* a:hover {
   @apply underline;
-}
+} */
 
-span,
+/* span,
 p {
   @apply font-light;
-}
+} */
 
 /* Styles for lazy loaded images */
 .blur-up {
