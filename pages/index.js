@@ -4,13 +4,11 @@ import Layout from "components/Layout";
 import SEO from "components/Seo";
 import { getSiteMetaData } from "utils/helpers";
 import moment from "moment";
+import CallToAction from "components/CallToAction";
 
 function Home({ data }) {
   const siteMetadata = getSiteMetaData();
   const metaDescription = siteMetadata.description || "";
-  const metaTitle = siteMetadata.titleDense || "";
-
-  const bantuTemu = <span className="font-semibold">{metaTitle}</span>;
 
   const items = (
     <div className="grid gap-4 md:grid-cols-3">
@@ -39,39 +37,6 @@ function Home({ data }) {
     </div>
   );
 
-  const callToAction = (
-    <div className="grid gap-6 md:grid-cols-2">
-      <div className="">
-        <h1 className="text-xl text-primary font-display">
-          Kehilangan uang, dompet, sim, ktp, atau kawan-kawannya? Segera lapor
-          di {bantuTemu}! Kami akan bantu untuk mencari di database pelaporan
-          barang hilang.
-        </h1>
-        <Link href="/">
-          <a>
-            <div className="p-4 mt-4 text-lg text-center text-white rounded font-display bg-primary">
-              Lapor Kehilangan Barang
-            </div>
-          </a>
-        </Link>
-      </div>
-      <div className="">
-        <h1 className="text-xl text-primary font-display">
-          Atau menemukan barang berharga yang tidak tahu pemiliknya siapa?
-          Segera lapor juga di {bantuTemu}! supaya pemiliknya dapat segera
-          ketemu.
-        </h1>
-        <Link href="/">
-          <a>
-            <div className="p-4 mt-4 text-lg text-center text-white rounded font-display bg-primary">
-              Lapor Penemuan Barang
-            </div>
-          </a>
-        </Link>
-      </div>
-    </div>
-  );
-
   return (
     <Layout>
       <SEO title="Website untuk melaporkan barang yang hilang atau ditemukan" />
@@ -85,10 +50,7 @@ function Home({ data }) {
           <h2 className="text-2xl font-display">Barang terlapor</h2>
           <div className="mt-4">{items}</div>
         </div>
-        <div>
-          <h2 className="text-2xl font-display">Ingin lapor barang hilang/ditemukan?</h2>
-          <div className="mt-4">{callToAction}</div>
-        </div>
+        <CallToAction />
       </div>
     </Layout>
   );
