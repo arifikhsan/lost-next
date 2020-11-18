@@ -15,10 +15,13 @@ function Home({ data }) {
       {data.map((item) => (
         <Link key={item.id} href={`item/${item.slug}`}>
           <a className="p-4 transition duration-500 border rounded hover:shadow">
-            <div className="flex justify-between text-xs">
+            <div className="text-xs">
               {item.categories.map((category) => {
+                const isFirst = item.categories[0].id == category.id;
+
                 return (
                   <span key={category.id} className="text-gray-700">
+                    {!isFirst && <span>, </span>}
                     {category.name}
                   </span>
                 );

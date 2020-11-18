@@ -15,7 +15,7 @@ export default function CallToAction() {
           </h1>
           <Link href="/">
             <a>
-              <div className="p-4 mt-4 text-lg text-center text-white rounded font-display bg-primary">
+              <div className="py-3 mt-4 text-lg text-center text-white rounded bg-primary">
                 Lapor Kehilangan Barang
               </div>
             </a>
@@ -29,7 +29,7 @@ export default function CallToAction() {
           </h1>
           <Link href="/">
             <a>
-              <div className="p-4 mt-4 text-lg text-center text-white rounded font-display bg-primary">
+              <div className="py-3 mt-4 text-lg text-center text-white rounded bg-primary">
                 Lapor Penemuan Barang
               </div>
             </a>

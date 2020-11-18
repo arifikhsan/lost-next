@@ -18,6 +18,19 @@ function Item({ item }) {
             {item.reward > 0 && <p>Hadiah: Rp. item.reward</p>}
             <p>Sejak: {moment(item.time_start).fromNow()}</p>
             <p>Pelapor: {item.user.name}</p>
+            <p>
+              Kategori:{" "}
+              {item.categories.map((category) => {
+                const isFirst = item.categories[0].id == category.id;
+
+                return (
+                  <span key={category.id} className="text-gray-700">
+                    {!isFirst && <span>, </span>}
+                    {category.name}
+                  </span>
+                );
+              })}
+            </p>
           </div>
         </div>
         <div className="">
