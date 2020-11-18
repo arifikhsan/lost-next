@@ -44,7 +44,8 @@ function Home({ data }) {
       <div className="">
         <h1 className="text-xl text-primary font-display">
           Kehilangan uang, dompet, sim, ktp, atau kawan-kawannya? Segera lapor
-          di {bantuTemu}! semoga segera ditemukan.
+          di {bantuTemu}! Kami akan bantu untuk mencari di database pelaporan
+          barang hilang.
         </h1>
         <Link href="/">
           <a>
@@ -81,11 +82,11 @@ function Home({ data }) {
           </h1>
         </div>
         <div>
-          <h2 className="text-2xl font-display">Barang Terlapor</h2>
+          <h2 className="text-2xl font-display">Barang terlapor</h2>
           <div className="mt-4">{items}</div>
         </div>
         <div>
-          <h2 className="text-2xl font-display">Lorem Ipsum</h2>
+          <h2 className="text-2xl font-display">Ingin lapor barang hilang/ditemukan?</h2>
           <div className="mt-4">{callToAction}</div>
         </div>
       </div>
