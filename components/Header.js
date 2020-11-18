@@ -2,7 +2,7 @@ import Link from "next/link";
 import { useState } from "react";
 
 export default function Header() {
-  const [navOpen, setNavOpen] = useState(true);
+  const [navOpen, setNavOpen] = useState(false);
 
   const toggleNav = () => setNavOpen(!navOpen);
 
@@ -31,9 +31,32 @@ export default function Header() {
               </p>
             </a>
           </Link>
+          <Link href="/">
+            <a>
+              <p onClick={toggleNav} className="p-4">
+                Daftar / Masuk
+              </p>
+            </a>
+          </Link>
           <Link href="/blog">
             <a>
-              <p onClick={toggleNav} className="p-4">Blog</p>
+              <p onClick={toggleNav} className="p-4">
+                Blog
+              </p>
+            </a>
+          </Link>
+          <Link href="/item/new">
+            <a>
+              <p onClick={toggleNav} className="p-4">
+                Laporkan Barang Hilang
+              </p>
+            </a>
+          </Link>
+          <Link href="/item/new">
+            <a>
+              <p onClick={toggleNav} className="p-4">
+                Laporkan Barang Temuan
+              </p>
             </a>
           </Link>
         </div>

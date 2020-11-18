@@ -1,15 +1,17 @@
 import Head from "next/head";
+import { useRouter } from "next/router";
 import { getSiteMetaData } from "utils/helpers";
 
 export default function SEO({ title, description = "" }) {
   const siteMetadata = getSiteMetaData();
-
   const metaDescription = description || siteMetadata.description;
+  const { pathname } = useRouter();
+  const isRoot = pathname === "/";
 
   return (
     <Head>
       <title>
-        {title} | {siteMetadata.title}
+        {title} | {isRoot ? metaDescription : siteMetadata.title}
       </title>
       <meta name="description" content={metaDescription} />
       <meta property="og:type" content="website" />

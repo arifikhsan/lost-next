@@ -15,7 +15,7 @@ export default function Blog({ posts }) {
             <header className="py-2">
               <h3 className="py-2">
                 <Link href={"/post/[slug]"} as={`/post/${slug}`}>
-                  <a className="text-3xl font-bold text-blue-600 lg:text-4xl font-display">
+                  <a className="text-3xl font-bold text-primary lg:text-4xl font-display">
                     {title}
                   </a>
                 </Link>
