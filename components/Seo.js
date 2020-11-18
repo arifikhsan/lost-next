@@ -25,6 +25,7 @@ export default function SEO({ title, description = "" }) {
       <meta name="twitter:title" content={title} />
       <meta name="twitter:description" content={metaDescription} />
       <meta name="twitter:creator" content={siteMetadata.social.twitter} />
+      <meta name="google-site-verification" content="t6yga77wK2VqTOCaDMYncrcdXJo3Io8VZYiZb3xzX6I" />
       <link rel="icon" type="image/png" href="/static/favicon.ico" />
       <link rel="apple-touch-icon" href="/static/favicon.ico" />
     </Head>
