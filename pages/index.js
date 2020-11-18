@@ -20,18 +20,20 @@ function Home({ data }) {
   const items = (
     <div className="grid gap-4">
       {data.map((item) => (
-        <div key={item.id} className="p-4 border rounded">
-          <div className="flex justify-between text-xs">
-            <span className="text-gray-700">{item.condition}</span>
-          </div>
-          <p className="mt-1">{item.title}</p>
-          <div className="mt-4 text-sm text-gray-700">
-            {item.reward > 0 && <p>Hadiah: Rp.{item.reward}</p>}
-            <p>
-              {item.condition} {showTime(item.time_start)}
-            </p>
-          </div>
-        </div>
+        <Link key={item.id} href={`item/${item.slug}`}>
+          <a className="p-4 transition duration-500 border rounded hover:shadow">
+            <div className="flex justify-between text-xs">
+              <span className="text-gray-700">{item.condition}</span>
+            </div>
+            <p className="mt-1">{item.title}</p>
+            <div className="mt-4 text-sm text-gray-700">
+              {item.reward > 0 && <p>Hadiah: Rp.{item.reward}</p>}
+              <p>
+                {item.condition} {showTime(item.time_start)}
+              </p>
+            </div>
+          </a>
+        </Link>
       ))}
     </div>
   );
