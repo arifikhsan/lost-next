@@ -27,7 +27,9 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        "neon-orange": "#f92300",
+        primary: "#2F7DF1",
+        secondary: "#5599FF",
+        accent: "#30D876",
       },
       fontSize: {
         "7xl": "4.5rem",
@@ -37,8 +39,8 @@ module.exports = {
       },
     },
     fontFamily: {
-      display: ["Open Sans", ...defaultSans],
-      body: ["Merriweather", ...defaultSerif],
+      display: ["Merriweather", ...defaultSans],
+      body: ["Open Sans", ...defaultSerif],
     },
     typography: (theme) => ({
       default: {

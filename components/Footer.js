@@ -2,12 +2,13 @@ import Link from "next/link";
 
 export default function Footer() {
   return (
-    <footer className="font-light text-center text-white">
-      <div className="bg-blue-500">
+    <footer className="mt-10 font-light text-center text-gray-800">
+      <div className="bg-gray-100">
         <div className="max-w-5xl p-4 mx-auto">
-          <div className="flex items-center justify-between">
+          <p className="text-lg font-semibold">Halaman</p>
+          <div className="flex flex-col mt-2 space-y-1">
             <Link href="/">
-              <a>Homepage</a>
+              <a>Beranda</a>
             </Link>
             <Link href="/blog">
               <a>Blog</a>
@@ -15,11 +16,9 @@ export default function Footer() {
           </div>
         </div>
       </div>
-      <div className="bg-blue-600">
+      <div className="bg-gray-200">
         <div className="max-w-5xl p-4 mx-auto">
-          © {new Date().getFullYear()}, BantuTemu | Built with{" "}
-          <a href="https://nextjs.org/">Next.js</a>
-          &#128293;
+          bantutemu, {new Date().getFullYear()}
         </div>
       </div>
     </footer>

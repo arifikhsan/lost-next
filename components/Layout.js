@@ -1,5 +1,5 @@
 import { useRouter } from "next/router";
-import Footer from './Footer'
+import Footer from "./Footer";
 import Header from "./Header";
 export default function Layout({ children }) {
   const { pathname } = useRouter();
@@ -8,7 +8,7 @@ export default function Layout({ children }) {
   return (
     <div className="antialiased font-body">
       <Header />
-      <main className="p-4">{children}</main>
+      <main className="max-w-5xl p-4 mx-auto">{children}</main>
       <Footer />
     </div>
   );
