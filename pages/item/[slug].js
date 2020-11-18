@@ -9,12 +9,11 @@ function Item({ item }) {
     <Layout>
       <SEO title={item.title} description={item.detail} />
       <div>
-        <h1 className="text-3xl font-bold">{item.title}</h1>
-
+        <h1 className="py-6 text-3xl font-bold font-display">{item.title}</h1>
         <div className="mt-6">
-          <h3 className="text-xl font-semibold">Informasi</h3>
+          <h3 className="text-xl font-semibold font-display">Informasi</h3>
           <div className="mt-2 text-sm text-gray-700">
-            <p>Kondisi: {item.condition == "found" ? "ditemukan" : "hilang"}</p>
+            <p>Kondisi: {item.condition}</p>
             {item.reward > 0 && <p>Hadiah: Rp. item.reward</p>}
             <p>Sejak: {moment(item.time_start).fromNow()}</p>
             <p>Pelapor: {item.user.name}</p>
@@ -22,7 +21,7 @@ function Item({ item }) {
         </div>
 
         <div className="mt-6">
-          <h3 className="text-xl font-semibold">Deskripsi</h3>
+          <h3 className="text-xl font-semibold font-display">Deskripsi</h3>
           <div className="mt-2 text-gray-800">
             <p>{item.detail}</p>
           </div>
