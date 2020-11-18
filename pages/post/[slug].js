@@ -30,7 +30,7 @@ export default function Post({ post, frontmatter, nextPost, previousPost }) {
         description={frontmatter.description || post.excerpt}
       />
 
-      <article>
+      <article className="my-10">
         <header className="mb-8">
           <h1 className="mb-2 text-4xl font-black leading-none lg:text-6xl font-display">
             {frontmatter.title}

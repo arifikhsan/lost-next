@@ -37,6 +37,9 @@ module.exports = {
       spacing: {
         14: "3.375rem",
       },
+      zIndex: {
+        "-10": "-10",
+      },
     },
     fontFamily: {
       display: ["Merriweather", ...defaultSans],

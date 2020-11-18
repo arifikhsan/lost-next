@@ -22,7 +22,7 @@ export default function Header() {
       </div>
 
       {/* overlay */}
-      <div hidden={!navOpen} className="absolute w-full h-screen bg-white">
+      <div hidden={!navOpen} className="absolute z-50 w-full h-screen bg-white">
         <div className="flex flex-col justify-between mt-20 space-y-4 text-lg text-center font-display">
           <Link href="/">
             <a>
