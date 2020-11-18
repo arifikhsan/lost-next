@@ -4,7 +4,7 @@
   "description": "A Next.js template for a blog website.",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev --port 8000",
     "build": "next build",
     "start": "next start"
   },
@@ -14,6 +14,7 @@
     "imagemin-optipng": "^8.0.0",
     "lazysizes": "^5.2.2",
     "lqip-loader": "^2.2.1",
+    "moment": "^2.29.1",
     "next": "10.0.1",
     "next-compose-plugins": "^2.2.0",
     "next-optimized-images": "^2.6.2",
