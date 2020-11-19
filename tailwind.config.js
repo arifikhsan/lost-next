@@ -42,7 +42,7 @@ module.exports = {
       },
     },
     fontFamily: {
-      display: ["Merriweather", ...defaultSans],
+      display: ["Metropolis", "Merriweather", ...defaultSans],
       body: ["Open Sans", ...defaultSerif],
     },
     typography: (theme) => ({

@@ -1,66 +1,112 @@
+import { signIn, signOut, useSession } from "next-auth/client";
 import Link from "next/link";
 import { useState } from "react";
 
 export default function Header() {
   const [navOpen, setNavOpen] = useState(false);
+  const [session, loading] = useSession();
 
   const toggleNav = () => setNavOpen(!navOpen);
 
   return (
-    <div className="sticky top-0 bg-white border-b">
-      <div className="max-w-5xl mx-auto">
-        <div className="flex items-center justify-between py-3">
-          <Link href="/">
-            <a className="p-4">
-              <img src="/logo.svg" alt="logo bantutemu" />
-            </a>
-          </Link>
-          <button onClick={toggleNav} className="p-4">
-            Menu
-          </button>
+    <>
+      <div className="sticky top-0 bg-white border-b">
+        <div className="max-w-5xl mx-auto">
+          <div className="flex items-center justify-between py-3">
+            <Link href="/">
+              <a className="py-4 ml-4">
+                <img src="/logo.svg" alt="logo bantutemu" />
+              </a>
+            </Link>
+            <button onClick={toggleNav} className="py-4 mr-4">
+              Menu
+            </button>
+          </div>
         </div>
-      </div>
 
-      {/* overlay */}
-      <div hidden={!navOpen} className="absolute z-50 w-full h-screen bg-white">
-        <div className="flex flex-col justify-between mt-20 space-y-4 text-lg text-center font-display">
-          <Link href="/">
-            <a>
-              <p onClick={toggleNav} className="p-4">
-                Beranda
-              </p>
-            </a>
-          </Link>
-          <Link href="/">
-            <a>
-              <p onClick={toggleNav} className="p-4">
-                Daftar / Masuk
-              </p>
-            </a>
-          </Link>
-          <Link href="/blog">
-            <a>
-              <p onClick={toggleNav} className="p-4">
-                Blog
-              </p>
-            </a>
-          </Link>
-          <Link href="/item/new">
-            <a>
-              <p onClick={toggleNav} className="p-4">
-                Laporkan Barang Hilang
-              </p>
-            </a>
-          </Link>
-          <Link href="/item/new">
-            <a>
-              <p onClick={toggleNav} className="p-4">
-                Laporkan Barang Temuan
-              </p>
-            </a>
-          </Link>
+        {/* overlay */}
+        <div
+          hidden={!navOpen}
+          className="absolute z-50 w-full h-screen bg-white"
+        >
+          <div className="flex flex-col justify-between mt-20 space-y-4 text-lg text-center font-display">
+            <Link href="/">
+              <a>
+                <p onClick={toggleNav} className="p-4">
+                  Beranda
+                </p>
+              </a>
+            </Link>
+            <Link href="/blog">
+              <a>
+                <p onClick={toggleNav} className="p-4">
+                  Blog
+                </p>
+              </a>
+            </Link>
+            <Link href="/item/new">
+              <a>
+                <p onClick={toggleNav} className="p-4">
+                  Laporkan Barang Hilang
+                </p>
+              </a>
+            </Link>
+            <Link href="/item/new">
+              <a>
+                <p onClick={toggleNav} className="p-4">
+                  Laporkan Barang Temuan
+                </p>
+              </a>
+            </Link>
+          </div>
         </div>
       </div>
-    </div>
+      <div className="border-b">
+        <div>
+          {!session && (
+            <div className="flex items-center justify-between px-4 py-2 text-sm">
+              <span>You are not signed in</span>
+              <a
+                href={`/api/auth/signin`}
+                className="px-4 py-2 text-white rounded bg-accent"
+                onClick={(e) => {
+                  e.preventDefault();
+                  signIn();
+                }}
+              >
+                Sign in
+              </a>
+            </div>
+          )}
+          {session && (
+            <div className="flex items-center justify-between px-4 py-2 text-sm">
+              {session.user.image && (
+                <img
+                  className="w-8 h-8 rounded-full"
+                  src={session.user.image}
+                />
+              )}
+              <span>
+                <small>Signed in as</small>
+                <br />
+                <span className="">
+                  {session.user.email || session.user.name}
+                </span>
+              </span>
+              <a
+                href={`/api/auth/signout`}
+                className="p-1 text-white bg-red-500 rounded"
+                onClick={(e) => {
+                  e.preventDefault();
+                  signOut();
+                }}
+              >
+                Sign out
+              </a>
+            </div>
+          )}
+        </div>
+      </div>
+    </>
   );
 }
