@@ -18,9 +18,38 @@ export default function Header() {
                 <img src="/logo.svg" alt="logo bantutemu" />
               </a>
             </Link>
-            <button onClick={toggleNav} className="py-4 mr-4">
-              Menu
-            </button>
+            <div className="flex mr-4 space-x-4">
+              {session && (
+                <div className="items-center justify-between hidden px-4 py-2 space-x-4 text-sm md:flex">
+                  {session.user.image && (
+                    <img
+                      className="w-8 h-8 rounded-full"
+                      src={session.user.image}
+                    />
+                  )}
+                  <span>
+                    <small>Signed in as</small>
+                    <br />
+                    <span className="">
+                      {session.user.email || session.user.name}
+                    </span>
+                  </span>
+                  <a
+                    href={`/api/auth/signout`}
+                    className="px-4 py-2 text-base text-white bg-red-500 rounded"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      signOut();
+                    }}
+                  >
+                    Sign out
+                  </a>
+                </div>
+              )}
+              <button onClick={toggleNav} className="py-4">
+                Menu
+              </button>
+            </div>
           </div>
         </div>
 
@@ -62,7 +91,7 @@ export default function Header() {
         </div>
       </div>
       <div className="border-b">
-        <div>
+        <div className="max-w-5xl mx-auto">
           {!session && (
             <div className="flex items-center justify-between px-4 py-2 text-sm">
               <span>You are not signed in</span>
@@ -79,7 +108,7 @@ export default function Header() {
             </div>
           )}
           {session && (
-            <div className="flex items-center justify-between px-4 py-2 text-sm">
+            <div className="flex items-center justify-between px-4 py-2 text-sm md:hidden">
               {session.user.image && (
                 <img
                   className="w-8 h-8 rounded-full"
