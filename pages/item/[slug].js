@@ -59,7 +59,7 @@ function Item({ item }) {
 }
 
 export async function getServerSideProps({ params }) {
-  const res = await fetch(`${process.env.API_URL}/items/${params.slug}`);
+  const res = await fetch(`${process.env.LOST_API_URL}/items/${params.slug}`);
   const data = await res.json();
   const item = data["data"];
 
