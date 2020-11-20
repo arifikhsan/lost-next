@@ -30,7 +30,7 @@ export default function CallToAction() {
           <Link href="/">
             <a>
               <div className="py-3 my-6 text-lg text-center text-white rounded bg-primary">
-                Lapor Penemuan Barang
+                Lapor Barang Temuan
               </div>
             </a>
           </Link>

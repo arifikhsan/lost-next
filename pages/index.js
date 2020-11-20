@@ -60,7 +60,7 @@ function Home({ data }) {
 }
 
 export async function getServerSideProps() {
-  const res = await fetch(`${process.env.API_URL}api/v1/items`);
+  const res = await fetch(`${process.env.API_URL}/items`);
   let data = await res.json();
   data = data["data"];
 

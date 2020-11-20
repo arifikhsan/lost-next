@@ -31,7 +31,7 @@ export default function Header() {
                     <small>Signed in as</small>
                     <br />
                     <span className="">
-                      {session.user.email || session.user.name}
+                      {session.user.name || session.user.email}
                     </span>
                   </span>
                   <a
@@ -73,20 +73,24 @@ export default function Header() {
                 </p>
               </a>
             </Link>
-            <Link href="/item/new">
-              <a>
-                <p onClick={toggleNav} className="p-4">
-                  Laporkan Barang Hilang
-                </p>
-              </a>
-            </Link>
-            <Link href="/item/new">
-              <a>
-                <p onClick={toggleNav} className="p-4">
-                  Laporkan Barang Temuan
-                </p>
-              </a>
-            </Link>
+            {session && (
+              <>
+                <Link href="/item/new">
+                  <a>
+                    <p onClick={toggleNav} className="p-4">
+                      Laporkan Barang Hilang
+                    </p>
+                  </a>
+                </Link>
+                <Link href="/item/new">
+                  <a>
+                    <p onClick={toggleNav} className="p-4">
+                      Laporkan Barang Temuan
+                    </p>
+                  </a>
+                </Link>
+              </>
+            )}
           </div>
         </div>
       </div>
@@ -119,7 +123,7 @@ export default function Header() {
                 <small>Signed in as</small>
                 <br />
                 <span className="">
-                  {session.user.email || session.user.name}
+                  {session.user.name || session.user.email}
                 </span>
               </span>
               <a
