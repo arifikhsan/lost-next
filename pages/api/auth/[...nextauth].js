@@ -76,7 +76,7 @@ const options = {
     signIn: async (user, account, profile) => {
       const payload = { user, account, profile };
       await axios.post(
-        `${process.env.LOST_API_URL}/users/signin_from_google`,
+        `${process.env.LOST_API_URL}/signin_from_google`,
         payload
       );
       return Promise.resolve(true);
@@ -118,7 +118,7 @@ const options = {
           uid: token.uid || "",
         };
         const response = await axios.post(
-          `${process.env.LOST_API_URL}/users/signin_from_google`,
+          `${process.env.LOST_API_URL}/signin_from_google`,
           { profile: data },
           { headers }
         );
