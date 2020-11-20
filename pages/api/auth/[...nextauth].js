@@ -74,7 +74,11 @@ const options = {
      *                           Return `false` to deny access
      */
     signIn: async (user, account, profile) => {
-      const payload = { user, account, profile };
+      const payload = {
+        user: { name: user.name, image: user.image },
+        account: { provider: account.provider },
+        profile: { id: profile.id, email: profile.email },
+      };
       await axios.post(
         `${process.env.LOST_API_URL}/signin_from_google`,
         payload
