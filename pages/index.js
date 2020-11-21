@@ -6,8 +6,8 @@ import { getSiteMetaData } from "utils/helpers";
 import moment from "moment";
 import CallToAction from "components/CallToAction";
 import network from "utils/network";
-
 function Home({ data }) {
+
   const siteMetadata = getSiteMetaData();
   const metaDescription = siteMetadata.description || "";
 
@@ -44,6 +44,7 @@ function Home({ data }) {
   return (
     <Layout>
       <SEO title="BantuTemu" description={metaDescription} />
+      <iframe src="/api/examples/jwt" />
       <div className="grid gap-8">
         <div className="lg:text-center">
           <h1 className="py-4 text-3xl font-bold md:py-12 text-primary font-display">
@@ -62,6 +63,11 @@ function Home({ data }) {
 
 export async function getServerSideProps() {
   const res = await network.get(`/items`);
+  // setCookie(ctx, "from get serverside", "value", { maxAge: 14 * 24 * 60 * 60, path: "/" });
+  // setCookie(null, "fromclient", "value", {
+  //   maxAge: 14 * 24 * 60 * 60,
+  //   path: "/",
+  // });
   const data = res.data.data;
 
   return { props: { data } };

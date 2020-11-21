@@ -2,6 +2,7 @@ import NextAuth from "next-auth";
 import Providers from "next-auth/providers";
 import network from "utils/network";
 import { setHeaders } from "utils/cookies";
+import { setCookie } from "nookies";
 
 const options = {
   // @link https://next-auth.js.org/configuration/providers
@@ -53,7 +54,7 @@ const options = {
   jwt: {
     // A secret to use for key generation - you should set this explicitly
     // Defaults to NextAuth.js secret if not explicitly specified.
-    // secret: 'INp8IvdIyeMcoGAgFGoA61DdBglwwSqnXJZkgz8PSnw',
+    secret: process.env.NEXTAUTH_SECRET,
     // Set to true to use encryption. Defaults to false (signing only).
     // encryption: true,
     // You can define your own encode/decode functions for signing and encryption
@@ -80,8 +81,7 @@ const options = {
         account: { provider: account.provider },
         profile: { id: profile.id, email: profile.email },
       };
-      let res = await network.post(`/signin_from_google`, payload);
-      setHeaders(res.headers);
+      await network.post(`/signin_from_google`, payload);
       return Promise.resolve(true);
     },
 
@@ -133,7 +133,7 @@ const options = {
         token.expiry = response.headers.expiry;
         token.uid = response.headers.uid;
 
-        setHeaders(response.headers);
+        console.log('token: ', token)
       }
 
       return Promise.resolve(token);
