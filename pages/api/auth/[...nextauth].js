@@ -1,6 +1,7 @@
-import axios from "axios";
 import NextAuth from "next-auth";
 import Providers from "next-auth/providers";
+import network from "utils/network";
+import { setHeaders } from "utils/cookies";
 
 const options = {
   // @link https://next-auth.js.org/configuration/providers
@@ -79,10 +80,8 @@ const options = {
         account: { provider: account.provider },
         profile: { id: profile.id, email: profile.email },
       };
-      await axios.post(
-        `${process.env.LOST_API_URL}/signin_from_google`,
-        payload
-      );
+      let res = await network.post(`/signin_from_google`, payload);
+      setHeaders(res.headers);
       return Promise.resolve(true);
     },
 
@@ -121,7 +120,7 @@ const options = {
           client: token.client || "",
           uid: token.uid || "",
         };
-        const response = await axios.post(
+        const response = await network.post(
           `${process.env.LOST_API_URL}/signin_from_google`,
           { profile: data },
           { headers }
@@ -133,6 +132,8 @@ const options = {
         token.client = response.headers.client;
         token.expiry = response.headers.expiry;
         token.uid = response.headers.uid;
+
+        setHeaders(response.headers);
       }
 
       return Promise.resolve(token);

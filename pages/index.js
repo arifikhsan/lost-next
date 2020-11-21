@@ -5,6 +5,7 @@ import SEO from "components/Seo";
 import { getSiteMetaData } from "utils/helpers";
 import moment from "moment";
 import CallToAction from "components/CallToAction";
+import network from "utils/network";
 
 function Home({ data }) {
   const siteMetadata = getSiteMetaData();
@@ -42,7 +43,7 @@ function Home({ data }) {
 
   return (
     <Layout>
-      <SEO title='BantuTemu' description={metaDescription} />
+      <SEO title="BantuTemu" description={metaDescription} />
       <div className="grid gap-8">
         <div className="lg:text-center">
           <h1 className="py-4 text-3xl font-bold md:py-12 text-primary font-display">
@@ -60,9 +61,8 @@ function Home({ data }) {
 }
 
 export async function getServerSideProps() {
-  const res = await fetch(`${process.env.LOST_API_URL}/items`);
-  let data = await res.json();
-  data = data["data"];
+  const res = await network.get(`/items`);
+  const data = res.data.data;
 
   return { props: { data } };
 }

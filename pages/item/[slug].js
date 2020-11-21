@@ -4,6 +4,7 @@ import Layout from "components/Layout";
 import SEO from "components/Seo";
 import moment from "moment";
 import CallToAction from "components/CallToAction";
+import network from "utils/network";
 
 function Item({ item }) {
   return (
@@ -59,9 +60,10 @@ function Item({ item }) {
 }
 
 export async function getServerSideProps({ params }) {
-  const res = await fetch(`${process.env.LOST_API_URL}/items/${params.slug}`);
-  const data = await res.json();
-  const item = data["data"];
+  // const res = await fetch(`${process.env.LOST_API_URL}/items/${params.slug}`);
+  const res = await network.get(`/items/${params.slug}`);
+  // const data = await res.json();
+  const item = res.data["data"];
 
   return { props: { item } };
 }
