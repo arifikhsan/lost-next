@@ -6,12 +6,29 @@ import moment from "moment";
 import CallToAction from "components/CallToAction";
 import network from "utils/network";
 
-function Item({ item }) {
+function Item({ item, editable }) {
+  // console.log(item.user);
+  // console.log("editable: ", editable);
+
   return (
     <Layout>
       <SEO title={item.title} description={item.detail} />
       <div className="grid gap-6">
         <h1 className="py-6 text-3xl font-bold font-display">{item.title}</h1>
+        {editable && (
+          <div className="space-x-2">
+            <Link href="/">
+              <a className="px-4 py-2 text-sm text-white rounded bg-primary">
+                Edit
+              </a>
+            </Link>
+            <Link href="/">
+              <a className="px-4 py-2 text-sm text-white bg-red-500 rounded">
+                Hapus
+              </a>
+            </Link>
+          </div>
+        )}
         <div className="">
           <h3 className="text-xl font-semibold font-display">Informasi</h3>
           <div className="mt-2 text-sm text-gray-700">
@@ -59,13 +76,27 @@ function Item({ item }) {
   );
 }
 
-export async function getServerSideProps({ params }) {
+export async function getServerSideProps({ params, req }) {
+  let editable = false;
   // const res = await fetch(`${process.env.LOST_API_URL}/items/${params.slug}`);
   const res = await network.get(`/items/${params.slug}`);
+
+  const options = { headers: { cookie: req.headers.cookie } };
+  const resToken = await network.get(
+    `${process.env.NEXTAUTH_URL}/api/examples/jwt`,
+    options
+  );
+  // console.log(resToken.data);
+
   // const data = await res.json();
   const item = res.data["data"];
+  // console.log(item.user.uid)
 
-  return { props: { item } };
+  if (resToken.data) {
+    editable = item.user.email === resToken.data.email;
+  }
+
+  return { props: { item, editable } };
 }
 
 export default Item;

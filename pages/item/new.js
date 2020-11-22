@@ -6,17 +6,23 @@ import { Formik, Form, Field } from "formik";
 import network from "utils/network";
 import { Component } from "react";
 import networkClient from "utils/network-client";
+import Link from "next/link";
 
 function ItemForm({ submitItem, categories, item }) {
   return (
     <div>
       <Formik
-        enableReinitialize={true}
+        enableReinitialize
         initialValues={{ item }}
         onSubmit={(values) => {
+          const dateNow = new Date();
+          const nextYear = dateNow.setFullYear(dateNow.getFullYear() + 1);
+
           item.title = values.item.title;
           item.detail = values.item.detail;
           item.condition = values.item.condition;
+          item.time_start = new Date().toISOString();
+          item.time_end = new Date(nextYear).toISOString();
 
           if (values.item.category.length > 0) {
             values.item.category.map((category_id) => {
@@ -29,7 +35,7 @@ function ItemForm({ submitItem, categories, item }) {
           submitItem();
         }}
       >
-        {({ values, handleSubmit }) => (
+        {({ values, handleSubmit, isSubmitting }) => (
           <Form
             onSubmit={(e) => {
               e.preventDefault();
@@ -146,6 +152,7 @@ class New extends Component {
         // reward_attributes: {},
       },
       categories: {},
+      done: false,
     };
 
     this.state.categories = this.props.categories;
@@ -154,11 +161,19 @@ class New extends Component {
   submitItem = async () => {
     let requestBody = { ...this.state.item };
     delete requestBody.category;
+    delete requestBody.slug;
 
     const response = await networkClient.post("/items", requestBody, {
       headers: { ...this.props.headers },
     });
-    console.log(response.data);
+
+    if (response.status == 201) {
+      alert("Berhasil membuat laporan 😇");
+      this.state.item.slug = response.data.data.slug;
+      this.setState({ done: true });
+    } else {
+      alert("Gagal membuat laporan 😭");
+    }
   };
 
   render() {
@@ -187,6 +202,13 @@ class New extends Component {
                 categories={this.state.categories}
                 item={this.state.item}
               />
+              {this.state.done && (
+                <Link href={`/item/${this.state.item.slug}`}>
+                  <a className="px-4 py-2 text-sm text-white rounded bg-primary">
+                    Lihat post
+                  </a>
+                </Link>
+              )}
             </div>
           </div>
         </div>

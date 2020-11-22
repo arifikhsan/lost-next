@@ -109,21 +109,11 @@ const options = {
     jwt: async (token, user, account, profile, isNewUser) => {
       const isSignIn = !!user;
 
-      // Add auth_time to token on signin in
-      //if (isSignIn) { token.auth_time = Math.floor(Date.now() / 1000) }
-
       if (isSignIn) {
         token.id = account.id;
-        const data = { email: token.email, id: token.id };
-        const headers = {
-          "access-token": token["access-token"] || "",
-          client: token.client || "",
-          uid: token.uid || "",
-        };
         const response = await network.post(
           `${process.env.LOST_API_URL}/signin_from_google`,
-          { profile: data },
-          { headers }
+          { profile: { email: token.email, id: token.id } }
         );
 
         // set token from api
@@ -132,8 +122,6 @@ const options = {
         token.client = response.headers.client;
         token.expiry = response.headers.expiry;
         token.uid = response.headers.uid;
-
-        console.log('token: ', token)
       }
 
       return Promise.resolve(token);

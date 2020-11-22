@@ -59,6 +59,24 @@ export default function Header() {
           className="absolute z-50 w-full h-screen bg-white"
         >
           <div className="flex flex-col justify-between mt-20 space-y-4 text-lg text-center font-display">
+            {session && (
+              <>
+                <Link href="/item/new">
+                  <a>
+                    <p onClick={toggleNav} className="p-4">
+                      Laporkan Barang Hilang/Temuan
+                    </p>
+                  </a>
+                </Link>
+                <Link href="/item/new">
+                  <a>
+                    <p onClick={toggleNav} className="p-4">
+                      Laporanku
+                    </p>
+                  </a>
+                </Link>
+              </>
+            )}
             <Link href="/">
               <a>
                 <p onClick={toggleNav} className="p-4">
@@ -73,24 +91,6 @@ export default function Header() {
                 </p>
               </a>
             </Link>
-            {session && (
-              <>
-                <Link href="/item/new">
-                  <a>
-                    <p onClick={toggleNav} className="p-4">
-                      Laporkan Barang Hilang
-                    </p>
-                  </a>
-                </Link>
-                <Link href="/item/new">
-                  <a>
-                    <p onClick={toggleNav} className="p-4">
-                      Laporkan Barang Temuan
-                    </p>
-                  </a>
-                </Link>
-              </>
-            )}
           </div>
         </div>
       </div>
@@ -104,7 +104,7 @@ export default function Header() {
                 className="px-4 py-2 text-white rounded bg-accent"
                 onClick={(e) => {
                   e.preventDefault();
-                  signIn();
+                  signIn('google');
                 }}
               >
                 Sign in
@@ -126,16 +126,15 @@ export default function Header() {
                   {session.user.name || session.user.email}
                 </span>
               </span>
-              <a
-                href={`/api/auth/signout`}
-                className="p-1 text-white bg-red-500 rounded"
+              <button
+                className="px-2 py-1 text-white bg-red-500 rounded"
                 onClick={(e) => {
                   e.preventDefault();
                   signOut();
                 }}
               >
                 Sign out
-              </a>
+              </button>
             </div>
           )}
         </div>

@@ -52,7 +52,7 @@ function Home({ data }) {
           </h1>
         </div>
         <div>
-          <h2 className="text-2xl font-display">Barang terlapor</h2>
+          <h2 className="text-2xl font-bold font-display">Barang terlapor</h2>
           <div className="mt-4">{items}</div>
         </div>
         <CallToAction />
@@ -62,7 +62,7 @@ function Home({ data }) {
 }
 
 export async function getServerSideProps() {
-  const res = await network.get(`/items`);
+  const res = await network.get(`/items?per=12`);
   // setCookie(ctx, "from get serverside", "value", { maxAge: 14 * 24 * 60 * 60, path: "/" });
   // setCookie(null, "fromclient", "value", {
   //   maxAge: 14 * 24 * 60 * 60,

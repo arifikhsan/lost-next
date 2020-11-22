@@ -8,6 +8,7 @@ const networkClient = axios.create({
 });
 
 networkClient.interceptors.request.use((config) => {
+  // config.headers = { "access-token": "### from next auth token ###" };
   return config;
 });
 

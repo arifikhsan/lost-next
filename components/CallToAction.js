@@ -3,7 +3,7 @@ import Link from "next/link";
 export default function CallToAction() {
   return (
     <div className="mt-8">
-      <h2 className="text-2xl font-display">
+      <h2 className="text-2xl font-bold font-display">
         Ingin lapor barang hilang/ditemukan?
       </h2>
       <div className="grid gap-6 mt-4 md:grid-cols-2">
