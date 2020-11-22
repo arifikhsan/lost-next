@@ -2,46 +2,197 @@ import AccessDenied from "components/AccessDenied";
 import Layout from "components/Layout";
 import SEO from "components/Seo";
 import { getSession } from "next-auth/client";
+import { Formik, Form, Field } from "formik";
 import network from "utils/network";
+import { Component } from "react";
+import networkClient from "utils/network-client";
 
-export default function New({ content, session, token, categories }) {
+function ItemForm({ submitItem, categories, item }) {
+  return (
+    <div>
+      <Formik
+        enableReinitialize={true}
+        initialValues={{ item }}
+        onSubmit={(values) => {
+          item.title = values.item.title;
+          item.detail = values.item.detail;
+          item.condition = values.item.condition;
 
-  if (!session) {
-    return (
-      <Layout>
-        <AccessDenied />
-      </Layout>
-    );
+          if (values.item.category.length > 0) {
+            values.item.category.map((category_id) => {
+              item.category_items_attributes.push({
+                category_id: parseInt(category_id),
+              });
+            });
+          }
+
+          submitItem();
+        }}
+      >
+        {({ values, handleSubmit }) => (
+          <Form
+            onSubmit={(e) => {
+              e.preventDefault();
+              handleSubmit();
+            }}
+          >
+            <div className="flex flex-col space-y-6">
+              <div>
+                <h3 className="text-xl font-semibold font-display">Kondisi</h3>
+                <div className="text-gray-700">Hilang / Ditemukan</div>
+                <div className="flex mt-2 space-x-4">
+                  <label className="inline-flex items-center">
+                    <Field
+                      className="form-radio"
+                      type="radio"
+                      name="item.condition"
+                      value="lost"
+                      required
+                    />
+                    <span className="ml-2">Hilang</span>
+                  </label>
+                  <label className="inline-flex items-center">
+                    <Field
+                      className="form-radio"
+                      type="radio"
+                      name="item.condition"
+                      value="found"
+                    />
+                    <span className="ml-2">Ditemukan</span>
+                  </label>
+                </div>
+              </div>
+              <div>
+                <h3 className="text-xl font-semibold font-display">
+                  Detail Barang
+                </h3>
+                <div>
+                  <label className="text-gray-700">Judul</label>
+                  <Field
+                    name="item.title"
+                    className="block w-full mt-1 form-input"
+                    placeholder="Telah hilang/ditemukan..."
+                  />
+                </div>
+                <div>
+                  <label className="text-gray-700">Deskripsi</label>
+                  <Field
+                    component="textarea"
+                    name="item.detail"
+                    className="block w-full mt-1 form-textarea"
+                    rows="4"
+                    placeholder="Ceritakan waktu, tempat, serta hal lain yang mendukung"
+                  />
+                </div>
+              </div>
+              <div>
+                <h3 className="text-xl font-semibold font-display">
+                  Kategori Barang
+                </h3>
+                <span>Pilih kategori yang relevan</span>
+                <div className="grid grid-cols-2 gap-4 mt-2">
+                  {categories.map((category) => (
+                    <label
+                      key={category.id}
+                      className="inline-flex items-center"
+                    >
+                      <Field
+                        component="input"
+                        type="checkbox"
+                        name="item.category"
+                        value={category.id}
+                        className="form-checkbox"
+                        checked={values.category}
+                      />
+                      <span className="ml-2 text-gray-800">
+                        {category.name}
+                      </span>
+                    </label>
+                  ))}
+                </div>
+              </div>
+              <div>
+                <h3 className="text-xl font-semibold font-display">
+                  Kirim laporan
+                </h3>
+                <div>
+                  <button
+                    type="submit"
+                    className="px-4 py-2 text-sm text-white rounded bg-primary"
+                  >
+                    Submit
+                  </button>
+                </div>
+              </div>
+            </div>
+          </Form>
+        )}
+      </Formik>
+    </div>
+  );
+}
+
+class New extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      item: {
+        title: "new title",
+        detail: "detail",
+        condition: "lost",
+        category: [],
+        category_items_attributes: [],
+        // reward_attributes: {},
+      },
+      categories: {},
+    };
+
+    this.state.categories = this.props.categories;
   }
 
-  return (
-    <Layout>
-      <SEO
-        title="Buat Laporan Kehilangan / Penemuan"
-        description="Laporkan barang yang Anda yang hilang atau ditemukan"
-      />
-      <div>
+  submitItem = async () => {
+    let requestBody = { ...this.state.item };
+    delete requestBody.category;
+
+    const response = await networkClient.post("/items", requestBody, {
+      headers: { ...this.props.headers },
+    });
+    console.log(response.data);
+  };
+
+  render() {
+    if (!this.props.session) {
+      return (
+        <Layout>
+          <AccessDenied />
+        </Layout>
+      );
+    }
+
+    return (
+      <Layout>
+        <SEO
+          title="Buat Laporan Kehilangan / Penemuan"
+          description="Laporkan barang yang Anda yang hilang atau ditemukan"
+        />
         <div>
-          <div className="grid gap-6">
-            <h1 className="py-6 text-3xl font-bold font-display">
-              Buat Laporan
-            </h1>
-            <div className="">
-              <h3 className="text-xl font-semibold font-display">Kondisi</h3>
-              {/* <div className="mt-2 text-sm text-gray-700">
-                <p>HP: {item.user.phone_number}</p>
-                <p>Whatsapp: {item.user.whatsapp_phone_number}</p>
-              </div> */}
-              {content}
-              {categories.map((c) => (
-                <p key={c.id}>{c.name}</p>
-              ))}
+          <div>
+            <div className="grid gap-6">
+              <h1 className="py-6 text-3xl font-bold font-display">
+                Buat Laporan
+              </h1>
+              <ItemForm
+                submitItem={this.submitItem}
+                categories={this.state.categories}
+                item={this.state.item}
+              />
             </div>
           </div>
         </div>
-      </div>
-    </Layout>
-  );
+      </Layout>
+    );
+  }
 }
 
 export async function getServerSideProps(context) {
@@ -49,6 +200,7 @@ export async function getServerSideProps(context) {
   let content = null;
   let token = null;
   let categories = null;
+  let headers = null;
 
   if (session) {
     const hostname = process.env.NEXTAUTH_URL || "http://localhost:8000";
@@ -64,17 +216,14 @@ export async function getServerSideProps(context) {
     const tokenJson = await resToken.json();
     token = tokenJson;
 
-    const headers = {
+    headers = {
       "access-token": token["access-token"],
       client: token["client"],
       uid: token["uid"],
     };
 
-    const resCategories = await network.get("/categories", { headers });
+    const resCategories = await network.get("/items/new", { headers });
     const me = await network.get("/me", { headers });
-
-    // console.log("resCategories: ", resCategories.data);
-    // console.log("me: ", me.data);
 
     if (resCategories.data) {
       categories = resCategories.data["data"];
@@ -87,6 +236,9 @@ export async function getServerSideProps(context) {
       content,
       token,
       categories,
+      headers,
     },
   };
 }
+
+export default New;
