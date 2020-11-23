@@ -7,42 +7,75 @@ import { Component } from "react";
 import networkClient from "utils/network-client";
 import Link from "next/link";
 import ItemForm from "components/ItemForm";
+import { pick } from "lodash";
 
-class New extends Component {
+class Edit extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      item: {
-        title: "new title",
-        detail: "detail",
-        condition: "lost",
-        category: [],
-        category_items_attributes: [],
-        // reward_attributes: {},
-      },
-      categories: {},
+      item: { ...this.props.item },
+      slug: this.props.slug,
+      // item: {
+      //   title: "new title",
+      //   detail: "detail",
+      //   condition: "lost",
+      //   category: [],
+      //   category_items_attributes: [],
+      //   reward_attributes: {},
+      // },
+      categories: [...this.props.categories],
       done: false,
     };
 
-    this.state.categories = this.props.categories;
+    // this.state.item.category = []
+    this.state.item.category_items_attributes = [];
+    this.state.item.category_ids = this.state.item.category_items.map((e) =>
+      String(e.category_id)
+    );
   }
 
   submitItem = async () => {
-    let requestBody = { ...this.state.item };
-    delete requestBody.category;
-    delete requestBody.slug;
+    // let requestBody = { ...this.state.item };
+    // delete requestBody.id;
+    // delete requestBody.categories;
+    // delete requestBody.category;
+    // delete requestBody.slug;
+    // delete requestBody.category_ids;
+    // delete requestBody.category_items;
 
-    const response = await networkClient.post("/items", requestBody, {
-      headers: { ...this.props.headers },
-    });
+    let requestBody = pick(this.state.item, [
+      "title",
+      "detail",
+      "condition",
+      "status",
+      "time_start",
+      "time_end",
+      "user",
+      "reward",
+      "category_items_attributes",
+    ]);
 
-    if (response.status == 201) {
-      alert("Berhasil membuat laporan 😇");
-      this.state.item.slug = response.data.data.slug;
+    console.log(requestBody);
+
+    const response = await networkClient.put(
+      `/items/${this.state.slug}`,
+      requestBody,
+      {
+        headers: { ...this.props.headers },
+      }
+    );
+
+    if (response.status == 200) {
+      alert("Berhasil update laporan 😇");
+
+      this.state.item = response.data.data;
       this.setState({ done: true });
+      this.state.item.category_ids = this.state.item.category_items.map((e) =>
+        String(e.category_id)
+      );
     } else {
-      alert("Gagal membuat laporan 😭");
+      alert("Gagal update laporan 😭");
     }
   };
 
@@ -71,6 +104,7 @@ class New extends Component {
                 submitItem={this.submitItem}
                 categories={this.state.categories}
                 item={this.state.item}
+                isEdit
               />
               {this.state.done && (
                 <Link href={`/item/${this.state.item.slug}`}>
@@ -89,24 +123,20 @@ class New extends Component {
 
 export async function getServerSideProps(context) {
   const session = await getSession(context);
-  let content = null;
   let token = null;
   let categories = null;
   let headers = null;
+  let item = null;
 
   if (session) {
     const hostname = process.env.NEXTAUTH_URL || "http://localhost:8000";
     const options = { headers: { cookie: context.req.headers.cookie } };
-    const res = await fetch(`${hostname}/api/examples/protected`, options);
-    const json = await res.json();
-
-    if (json.content) {
-      content = json.content;
-    }
 
     const resToken = await fetch(`${hostname}/api/examples/jwt`, options);
     const tokenJson = await resToken.json();
     token = tokenJson;
+
+    console.log("context: ", context.params);
 
     headers = {
       "access-token": token["access-token"],
@@ -114,8 +144,15 @@ export async function getServerSideProps(context) {
       uid: token["uid"],
     };
 
-    const resCategories = await network.get("/items/new", { headers });
-    const me = await network.get("/me", { headers });
+    const resItem = await network.get(`/items/${context.params.slug}/edit`, {
+      headers,
+    });
+
+    if (resItem.data) {
+      item = resItem.data["data"];
+    }
+
+    const resCategories = await network.get(`/categories`, { headers });
 
     if (resCategories.data) {
       categories = resCategories.data["data"];
@@ -124,13 +161,13 @@ export async function getServerSideProps(context) {
 
   return {
     props: {
-      session,
-      content,
-      token,
       categories,
       headers,
+      item,
+      session,
+      slug: context.params.slug,
     },
   };
 }
 
-export default New;
+export default Edit;
