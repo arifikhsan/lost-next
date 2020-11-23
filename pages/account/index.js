@@ -11,7 +11,7 @@ function UserForm({ user, submit }) {
   return (
     <Formik
       enableReinitialize={true}
-      initialValues={{ name: user.name, email: user.email }}
+      initialValues={{ name: user.name || "", email: user.email }}
       onSubmit={(values) => {
         submit(values);
       }}
