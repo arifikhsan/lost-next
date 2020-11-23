@@ -1,6 +1,7 @@
 import { signIn, signOut, useSession } from "next-auth/client";
 import Link from "next/link";
 import { useState } from "react";
+import Account from "./Account";
 
 export default function Header() {
   const [navOpen, setNavOpen] = useState(false);
@@ -9,7 +10,7 @@ export default function Header() {
   const toggleNav = () => setNavOpen(!navOpen);
 
   return (
-    <>
+    <div>
       <div className="sticky top-0 bg-white border-b">
         <div className="max-w-5xl mx-auto">
           <div className="flex items-center justify-between py-3">
@@ -46,8 +47,40 @@ export default function Header() {
                   </a>
                 </div>
               )}
-              <button onClick={toggleNav} className="py-4">
-                Menu
+              <button onClick={toggleNav} className="p-4">
+                {!navOpen ? (
+                  <svg
+                    className="w-6 h-6"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    {/* menu alt 1 */}
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M4 6h16M4 12h8m-8 6h16"
+                    />
+                  </svg>
+                ) : (
+                  <svg
+                    className="w-6 h-6"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    {/* x */}
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M6 18L18 6M6 6l12 12"
+                    />
+                  </svg>
+                )}
               </button>
             </div>
           </div>
@@ -56,7 +89,7 @@ export default function Header() {
         {/* overlay */}
         <div
           hidden={!navOpen}
-          className="absolute z-50 w-full h-screen bg-white"
+          className="relative z-50 w-full h-screen bg-white"
         >
           <div className="flex flex-col justify-between mt-20 space-y-4 text-lg text-center font-display">
             {session && (
@@ -94,51 +127,9 @@ export default function Header() {
           </div>
         </div>
       </div>
-      <div className="border-b">
-        <div className="max-w-5xl mx-auto">
-          {!session && (
-            <div className="flex items-center justify-between px-4 py-2 text-sm">
-              <span>You are not signed in</span>
-              <a
-                href={`/api/auth/signin`}
-                className="px-4 py-2 text-white rounded bg-accent"
-                onClick={(e) => {
-                  e.preventDefault();
-                  signIn('google');
-                }}
-              >
-                Sign in
-              </a>
-            </div>
-          )}
-          {session && (
-            <div className="flex items-center justify-between px-4 py-2 text-sm md:hidden">
-              {session.user.image && (
-                <img
-                  className="w-8 h-8 rounded-full"
-                  src={session.user.image}
-                />
-              )}
-              <span>
-                <small>Signed in as</small>
-                <br />
-                <span className="">
-                  {session.user.name || session.user.email}
-                </span>
-              </span>
-              <button
-                className="px-2 py-1 text-sm text-white bg-red-500 rounded"
-                onClick={(e) => {
-                  e.preventDefault();
-                  signOut();
-                }}
-              >
-                Sign out
-              </button>
-            </div>
-          )}
-        </div>
-      </div>
-    </>
+
+      {/* account */}
+      <Account />
+    </div>
   );
 }
