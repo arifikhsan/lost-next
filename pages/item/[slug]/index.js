@@ -7,9 +7,6 @@ import CallToAction from "components/CallToAction";
 import network from "utils/network";
 
 function Item({ item, editable }) {
-  // console.log(item.user);
-  // console.log("editable: ", editable);
-
   return (
     <Layout>
       <SEO title={item.title} description={item.detail} />
@@ -22,7 +19,7 @@ function Item({ item, editable }) {
                 Edit
               </a>
             </Link>
-            <Link href="/">
+            <Link href={`/item/${item.slug}/delete`}>
               <a className="px-4 py-2 text-sm text-white bg-red-500 rounded">
                 Hapus
               </a>

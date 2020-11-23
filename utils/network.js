@@ -1,5 +1,4 @@
 import axios from "axios";
-import { setHeaders } from "utils/cookies";
 
 const network = axios.create({
   baseURL: process.env.LOST_API_URL,
@@ -26,13 +25,17 @@ network.interceptors.request.use((config) => {
   return config;
 });
 
-network.interceptors.response.use((res) => {
-  // Any status code that lie within the range of 2xx cause this function to trigger
-  // console.log(res.headers);
-  // console.log("start axios response");
-  setHeaders(res.headers);
-
-  return res;
-});
+network.interceptors.response.use(
+  (res) => {
+    // Any status code that lie within the range of 2xx cause this function to trigger
+    // console.log(res.headers);
+    // console.log("start axios response");
+    // setHeaders(res.headers);
+    return res;
+  },
+  (err) => {
+    return Promise.resolve(err);
+  }
+);
 
 export default network;
