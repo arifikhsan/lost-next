@@ -139,6 +139,13 @@ export async function getServerSideProps(context) {
     if (resCategories.data) {
       categories = resCategories.data["data"];
     }
+  } else {
+    return {
+      redirect: {
+        destination: "/",
+        permanent: false,
+      },
+    };
   }
 
   return {
