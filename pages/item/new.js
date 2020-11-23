@@ -133,7 +133,9 @@ export async function getServerSideProps(context) {
       uid: token["uid"],
     };
 
-    const resCategories = await network.get("/items/new", { headers });
+    console.log('headers: ', headers)
+
+    const resCategories = await network.get("/categories", { headers });
     // const me = await network.get("/me", { headers });
 
     if (resCategories.data) {

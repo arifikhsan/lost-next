@@ -89,13 +89,14 @@ function Account() {
                     aria-labelledby="options-menu"
                   >
                     {session && (
-                      <a
-                        href="#"
-                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
-                        role="menuitem"
-                      >
-                        Pengaturan akun
-                      </a>
+                      <Link href="/account" className="" role="menuitem">
+                        <a
+                          className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
+                          role="menuitem"
+                        >
+                          Pengaturan akun
+                        </a>
+                      </Link>
                     )}
                     <Link href="/post/bantuan" className="" role="menuitem">
                       <a className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900">
