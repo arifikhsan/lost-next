@@ -68,7 +68,7 @@ export default function Header() {
                     </p>
                   </a>
                 </Link>
-                <Link href="/item/new">
+                <Link href="/item/mine">
                   <a>
                     <p onClick={toggleNav} className="p-4">
                       Laporanku
