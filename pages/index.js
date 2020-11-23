@@ -47,7 +47,7 @@ function Home({ data }) {
       <SEO title="BantuTemu" description={metaDescription} />
       <div className="grid gap-8">
         <div className="lg:text-center">
-          <h1 className="py-4 text-3xl font-bold md:py-12 text-primary font-display">
+          <h1 className="py-4 text-3xl font-bold sm:text-4xl lg:text-5xl md:py-12 text-primary font-display">
             {metaDescription}
           </h1>
         </div>

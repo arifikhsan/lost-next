@@ -36,7 +36,7 @@ export default function Header() {
                   </span>
                   <a
                     href={`/api/auth/signout`}
-                    className="px-4 py-2 text-base text-white bg-red-500 rounded"
+                    className="px-4 py-2 text-sm text-white bg-red-500 rounded"
                     onClick={(e) => {
                       e.preventDefault();
                       signOut();
@@ -127,7 +127,7 @@ export default function Header() {
                 </span>
               </span>
               <button
-                className="px-2 py-1 text-white bg-red-500 rounded"
+                className="px-2 py-1 text-sm text-white bg-red-500 rounded"
                 onClick={(e) => {
                   e.preventDefault();
                   signOut();
