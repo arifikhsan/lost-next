@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Transition } from "@headlessui/react";
-import { useSession } from "next-auth/client";
+import { signIn, signOut, useSession } from "next-auth/client";
 import Link from "next/link";
 
 function Account() {
@@ -72,17 +72,6 @@ function Account() {
                   </svg>
                 </button>
               </div>
-
-              {/* <!--
-    Dropdown panel, show/hide based on dropdown state.
-
-    Entering: "transition ease-out duration-100"
-      From: "transform opacity-0 scale-95"
-      To: "transform opacity-100 scale-100"
-    Leaving: "transition ease-in duration-75"
-      From: "transform opacity-100 scale-100"
-      To: "transform opacity-0 scale-95"
-  --> */}
               <Transition
                 show={accountNav}
                 enter="transition ease-out duration-100"
@@ -99,13 +88,15 @@ function Account() {
                     aria-orientation="vertical"
                     aria-labelledby="options-menu"
                   >
-                    <a
-                      href="#"
-                      className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
-                      role="menuitem"
-                    >
-                      Pengaturan akun
-                    </a>
+                    {session && (
+                      <a
+                        href="#"
+                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
+                        role="menuitem"
+                      >
+                        Pengaturan akun
+                      </a>
+                    )}
                     <Link href="/post/bantuan" className="" role="menuitem">
                       <a className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900">
                         Bantuan
@@ -113,7 +104,8 @@ function Account() {
                     </Link>
                     <form method="POST" action="#">
                       <button
-                        onClick={() => {
+                        onClick={(e) => {
+                          e.preventDefault();
                           signOut();
                         }}
                         type="submit"
