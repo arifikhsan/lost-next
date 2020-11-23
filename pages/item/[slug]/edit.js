@@ -56,8 +56,6 @@ class Edit extends Component {
       "category_items_attributes",
     ]);
 
-    console.log(requestBody);
-
     const response = await networkClient.put(
       `/items/${this.state.slug}`,
       requestBody,
@@ -135,8 +133,6 @@ export async function getServerSideProps(context) {
     const resToken = await fetch(`${hostname}/api/examples/jwt`, options);
     const tokenJson = await resToken.json();
     token = tokenJson;
-
-    console.log("context: ", context.params);
 
     headers = {
       "access-token": token["access-token"],

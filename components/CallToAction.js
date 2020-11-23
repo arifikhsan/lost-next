@@ -13,7 +13,7 @@ export default function CallToAction() {
             di BantuTemu Kami akan bantu untuk mencari di database pelaporan
             barang hilang.
           </h1>
-          <Link href="/">
+          <Link href="/item/new">
             <a>
               <div className="py-3 my-6 text-lg text-center text-white rounded bg-primary">
                 Lapor Kehilangan Barang
@@ -27,7 +27,7 @@ export default function CallToAction() {
             Segera lapor juga di BantuTemu supaya pemiliknya dapat segera
             ketemu.
           </h1>
-          <Link href="/">
+          <Link href="/item/new">
             <a>
               <div className="py-3 my-6 text-lg text-center text-white rounded bg-primary">
                 Lapor Barang Temuan

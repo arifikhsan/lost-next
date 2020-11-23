@@ -27,7 +27,7 @@ class New extends Component {
     };
 
     this.state.categories = this.props.categories;
-    this.state.item.category_ids = []
+    this.state.item.category_ids = [];
   }
 
   submitItem = async () => {
@@ -46,8 +46,6 @@ class New extends Component {
       "reward",
       "category_items_attributes",
     ]);
-
-    console.log('requestBody: ', requestBody)
 
     const response = await networkClient.post("/items", requestBody, {
       headers: { ...this.props.headers },
@@ -111,16 +109,21 @@ export async function getServerSideProps(context) {
   let headers = null;
 
   if (session) {
-    const hostname = process.env.NEXTAUTH_URL || "http://localhost:8000";
     const options = { headers: { cookie: context.req.headers.cookie } };
-    const res = await fetch(`${hostname}/api/examples/protected`, options);
+    const res = await fetch(
+      `${process.env.NEXTAUTH_URL}/api/examples/protected`,
+      options
+    );
     const json = await res.json();
 
     if (json.content) {
       content = json.content;
     }
 
-    const resToken = await fetch(`${hostname}/api/examples/jwt`, options);
+    const resToken = await fetch(
+      `${process.env.NEXTAUTH_URL}/api/examples/jwt`,
+      options
+    );
     const tokenJson = await resToken.json();
     token = tokenJson;
 
@@ -131,7 +134,7 @@ export async function getServerSideProps(context) {
     };
 
     const resCategories = await network.get("/items/new", { headers });
-    const me = await network.get("/me", { headers });
+    // const me = await network.get("/me", { headers });
 
     if (resCategories.data) {
       categories = resCategories.data["data"];
