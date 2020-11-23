@@ -7,6 +7,7 @@ import { Component } from "react";
 import networkClient from "utils/network-client";
 import Link from "next/link";
 import ItemForm from "components/ItemForm";
+import { pick } from "lodash";
 
 class New extends Component {
   constructor(props) {
@@ -14,8 +15,8 @@ class New extends Component {
 
     this.state = {
       item: {
-        title: "new title",
-        detail: "detail",
+        title: "",
+        detail: "",
         condition: "lost",
         category: [],
         category_items_attributes: [],
@@ -26,12 +27,27 @@ class New extends Component {
     };
 
     this.state.categories = this.props.categories;
+    this.state.item.category_ids = []
   }
 
   submitItem = async () => {
-    let requestBody = { ...this.state.item };
-    delete requestBody.category;
-    delete requestBody.slug;
+    // let requestBody = { ...this.state.item };
+    // delete requestBody.category;
+    // delete requestBody.slug;
+
+    let requestBody = pick(this.state.item, [
+      "title",
+      "detail",
+      "condition",
+      "status",
+      "time_start",
+      "time_end",
+      "user",
+      "reward",
+      "category_items_attributes",
+    ]);
+
+    console.log('requestBody: ', requestBody)
 
     const response = await networkClient.post("/items", requestBody, {
       headers: { ...this.props.headers },
