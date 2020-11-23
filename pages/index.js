@@ -62,7 +62,7 @@ function Home({ data }) {
 }
 
 export async function getServerSideProps() {
-  const res = await network.get(`/items?per=12`);
+  const res = await network.get(`/items`);
   // setCookie(ctx, "from get serverside", "value", { maxAge: 14 * 24 * 60 * 60, path: "/" });
   // setCookie(null, "fromclient", "value", {
   //   maxAge: 14 * 24 * 60 * 60,
