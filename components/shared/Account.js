@@ -12,7 +12,7 @@ function Account() {
     <div className="border-b md:border-none">
       <div className="max-w-5xl mx-auto">
         {!session && (
-          <div className="flex items-center justify-between px-4 py-2 text-sm">
+          <div className="flex items-center justify-between px-4 py-2 text-sm md:space-x-4">
             <span>You are not signed in</span>
             <button
               className="px-4 py-2 text-white rounded bg-accent"
@@ -90,7 +90,7 @@ function Account() {
                     {session && (
                       <Link href="/account" className="" role="menuitem">
                         <a
-                          className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
+                          className="block px-6 py-4 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
                           role="menuitem"
                         >
                           Pengaturan akun
@@ -98,7 +98,7 @@ function Account() {
                       </Link>
                     )}
                     <Link href="/post/bantuan" className="" role="menuitem">
-                      <a className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900">
+                      <a className="block px-6 py-4 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900">
                         Bantuan
                       </a>
                     </Link>
@@ -109,7 +109,7 @@ function Account() {
                           signOut();
                         }}
                         type="submit"
-                        className="block w-full px-4 py-2 text-sm text-left text-gray-700 hover:bg-gray-100 hover:text-gray-900 focus:outline-none focus:bg-gray-100 focus:text-gray-900"
+                        className="block w-full px-6 py-4 text-sm text-left text-gray-700 hover:bg-gray-100 hover:text-gray-900 focus:outline-none focus:bg-gray-100 focus:text-gray-900"
                         role="menuitem"
                       >
                         Keluar dari aplikasi

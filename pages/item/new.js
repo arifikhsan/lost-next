@@ -77,7 +77,7 @@ class New extends Component {
         />
         <div>
           <div>
-            <div className="grid gap-6">
+            <div className="grid max-w-3xl gap-6 mx-auto">
               <h1 className="py-6 text-3xl font-bold font-display">
                 Buat Laporan
               </h1>
@@ -133,7 +133,7 @@ export async function getServerSideProps(context) {
       uid: token["uid"],
     };
 
-    console.log('headers: ', headers)
+    console.log("headers: ", headers);
 
     const resCategories = await network.get("/categories", { headers });
     // const me = await network.get("/me", { headers });

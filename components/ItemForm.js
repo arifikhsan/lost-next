@@ -114,7 +114,7 @@ class ItemForm extends Component {
               }}
             >
               <div className="flex flex-col space-y-6">
-                <div>
+                <div className="flex flex-col space-y-4">
                   <h3 className="text-xl font-semibold font-display">
                     Kondisi
                   </h3>
@@ -141,7 +141,7 @@ class ItemForm extends Component {
                     </label>
                   </div>
                 </div>
-                <div>
+                <div className="flex flex-col space-y-4">
                   <h3 className="text-xl font-semibold font-display">
                     Detail Barang
                   </h3>
@@ -160,13 +160,13 @@ class ItemForm extends Component {
                       component="textarea"
                       name="item.detail"
                       className="block w-full mt-1 form-textarea"
-                      rows="4"
+                      rows="12"
                       placeholder="Ceritakan waktu, tempat, serta hal lain yang mendukung"
                       required
                     />
                   </div>
                 </div>
-                <div>
+                <div className="flex flex-col space-y-4">
                   <h3 className="text-xl font-semibold font-display">
                     Kategori Barang
                   </h3>
@@ -190,7 +190,7 @@ class ItemForm extends Component {
                     ))}
                   </div>
                 </div>
-                <div>
+                <div className="flex flex-col space-y-4">
                   <h3 className="text-xl font-semibold font-display">
                     Kirim laporan
                   </h3>
@@ -199,7 +199,7 @@ class ItemForm extends Component {
                       type="submit"
                       className="px-4 py-2 text-sm text-white rounded bg-primary"
                     >
-                      {isEdit ? "Update laporan" : "Buat baru"}
+                      {isEdit ? "Update laporan" : "Buat laporan baru"}
                     </button>
                   </div>
                 </div>

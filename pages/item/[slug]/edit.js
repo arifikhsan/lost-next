@@ -94,9 +94,9 @@ class Edit extends Component {
         />
         <div>
           <div>
-            <div className="grid gap-6">
+            <div className="grid max-w-3xl gap-6 mx-auto">
               <h1 className="py-6 text-3xl font-bold font-display">
-                Buat Laporan
+                Edit Laporan
               </h1>
               <ItemForm
                 submitItem={this.submitItem}

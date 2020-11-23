@@ -29,7 +29,7 @@ function UserForm({ user, submit }) {
                 <label className="text-gray-700">Email</label>
                 <Field
                   name="email"
-                  className="block mt-1 bg-gray-200 form-input"
+                  className="block w-full mt-1 bg-gray-200 form-input"
                   placeholder="Email"
                   disabled
                 />
@@ -38,7 +38,7 @@ function UserForm({ user, submit }) {
                 <label className="text-gray-700">Nama</label>
                 <Field
                   name="name"
-                  className="block mt-1 form-input"
+                  className="block w-full mt-1 form-input"
                   placeholder="Nama lengkap"
                   required
                 />
@@ -84,7 +84,7 @@ function UserDetailForm({ userDetail, submit }) {
                 <label className="text-gray-700">Nomor HP</label>
                 <Field
                   name="phoneNumber"
-                  className="block mt-1 form-input"
+                  className="block w-full mt-1 form-input"
                   placeholder="Nomor HP aktif"
                   required
                 />
@@ -93,7 +93,7 @@ function UserDetailForm({ userDetail, submit }) {
                 <label className="text-gray-700">Nomor WhatsApp</label>
                 <Field
                   name="whatsappPhoneNumber"
-                  className="block mt-1 form-input"
+                  className="block w-full mt-1 form-input"
                   placeholder="Nomor Whatsapp aktif"
                   required
                 />
@@ -155,7 +155,7 @@ function AccountSetting({ user, userDetail, authHeaders }) {
   return (
     <Layout>
       <SEO title="Pengaturan akun" description="Pengaturan akun" />
-      <div className="grid gap-6">
+      <div className="grid max-w-3xl gap-6 mx-auto">
         <h1 className="py-6 text-3xl font-bold font-display">
           Pengaturan akun
         </h1>
