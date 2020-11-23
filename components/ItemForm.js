@@ -1,4 +1,4 @@
-import { concat, difference, intersection, union } from "lodash";
+import { concat, difference, intersection, isEmpty, union } from "lodash";
 import { Component } from "react";
 
 const { Formik, Form, Field } = require("formik");
@@ -35,8 +35,8 @@ class ItemForm extends Component {
             }
 
             // console.log(values.item.category)
-            console.log("item.category_ids: ", item.category_ids);
-            console.log("values.item.category_ids: ", values.item.category_ids);
+            // console.log("item.category_ids: ", item.category_ids);
+            // console.log("values.item.category_ids: ", values.item.category_ids);
             // console.log('item.category_items: ', item.category_items)
 
             item.category_items_attributes = [];
@@ -78,25 +78,30 @@ class ItemForm extends Component {
 
               // jika category ada yang kurang, delete
               item.category_items.map((ci) => {
-                if (!values.item.category_ids.includes(String(ci.category_id))) {
-                  new_category_item.push({ _delete: true, ...ci });
+                if (
+                  !values.item.category_ids.includes(String(ci.category_id))
+                ) {
+                  new_category_item.push({ _destroy: true, ...ci });
                 }
               });
 
               item.category_items_attributes = new_category_item;
             } else {
-              values.item.category_ids.map((category_id) => {
-                let category_item = {
-                  category_id: parseInt(category_id),
-                };
-                item.category_items_attributes.push(category_item);
-              });
+              // jika ada kategori baru
+              if (!isEmpty(values.item.category_ids)) {
+                values.item.category_ids.map((category_id) => {
+                  let category_item = {
+                    category_id: parseInt(category_id),
+                  };
+                  item.category_items_attributes.push(category_item);
+                });
+              }
             }
 
-            console.log(
-              "item.category_items_attributes: ",
-              item.category_items_attributes
-            );
+            // console.log(
+            //   "item.category_items_attributes: ",
+            //   item.category_items_attributes
+            // );
 
             submitItem();
           }}
@@ -146,6 +151,7 @@ class ItemForm extends Component {
                       name="item.title"
                       className="block w-full mt-1 form-input"
                       placeholder="Telah hilang/ditemukan..."
+                      required
                     />
                   </div>
                   <div>
@@ -156,6 +162,7 @@ class ItemForm extends Component {
                       className="block w-full mt-1 form-textarea"
                       rows="4"
                       placeholder="Ceritakan waktu, tempat, serta hal lain yang mendukung"
+                      required
                     />
                   </div>
                 </div>
@@ -175,7 +182,6 @@ class ItemForm extends Component {
                           name="item.category_ids"
                           value={`${category.id}`}
                           className="form-checkbox"
-                          // checked={values.category}
                         />
                         <span className="ml-2 text-gray-800">
                           {category.name}
