@@ -32,7 +32,6 @@ function Item({ item, editable }) {
             <p>Kondisi: {item.condition}</p>
             {item.reward > 0 && <p>Hadiah: Rp. item.reward</p>}
             <p>Sejak: {moment(item.time_start).fromNow()}</p>
-            <p>Pelapor: {item.user.name}</p>
             <p>
               Kategori:{" "}
               {item.categories.map((category) => {
@@ -51,6 +50,7 @@ function Item({ item, editable }) {
         <div className="">
           <h3 className="text-xl font-semibold font-display">Kontak</h3>
           <div className="mt-2 text-sm text-gray-700">
+            <p>Nama: {item.user.name}</p>
             <p>HP: {item.user.phone_number}</p>
             <p>Whatsapp: {item.user.whatsapp_phone_number}</p>
           </div>

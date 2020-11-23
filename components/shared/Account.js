@@ -9,7 +9,7 @@ function Account() {
   const [session, loading] = useSession();
 
   return (
-    <div className="border-b">
+    <div className="border-b md:border-none">
       <div className="max-w-5xl mx-auto">
         {!session && (
           <div className="flex items-center justify-between px-4 py-2 text-sm">
@@ -26,21 +26,20 @@ function Account() {
           </div>
         )}
         {session && (
-          <div className="flex items-center justify-between px-4 py-2 text-sm md:hidden">
-            <div className="flex items-center space-x-2">
+          <div className="flex items-center justify-between px-4 py-2 text-sm md:space-x-4">
+            <div className="flex items-center justify-center space-x-2">
               {session.user.image && (
                 <img
-                  className="w-8 h-8 rounded-full"
+                  className="w-10 h-10 rounded-full"
                   src={session.user.image}
                 />
               )}
-              <span>
+              <div className="inline-flex flex-col items-start justify-center ml-2">
                 <small>Signed in as</small>
-                <br />
                 <span className="">
                   {session.user.name || session.user.email}
                 </span>
-              </span>
+              </div>
             </div>
             <div className="relative z-0 inline-block text-left">
               <div>
@@ -49,7 +48,7 @@ function Account() {
                     toggleAccountNav();
                   }}
                   type="button"
-                  className="inline-flex justify-center w-full px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-indigo-500"
+                  className="inline-flex items-center justify-center w-full px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-indigo-500"
                   id="options-menu"
                   aria-haspopup="true"
                   aria-expanded="true"

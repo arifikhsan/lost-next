@@ -11,7 +11,7 @@ export default function Header() {
 
   return (
     <div>
-      <div className="sticky top-0 bg-white border-b">
+      <div className="sticky top-0 z-40 bg-white border-b">
         <div className="max-w-5xl mx-auto">
           <div className="flex items-center justify-between py-3">
             <Link href="/">
@@ -19,35 +19,11 @@ export default function Header() {
                 <img src="/logo.svg" alt="logo bantutemu" />
               </a>
             </Link>
-            <div className="flex mr-4 space-x-4">
-              {session && (
-                <div className="items-center justify-between hidden px-4 py-2 space-x-4 text-sm md:flex">
-                  {session.user.image && (
-                    <img
-                      className="w-8 h-8 rounded-full"
-                      src={session.user.image}
-                    />
-                  )}
-                  <span>
-                    <small>Signed in as</small>
-                    <br />
-                    <span className="">
-                      {session.user.name || session.user.email}
-                    </span>
-                  </span>
-                  <a
-                    href={`/api/auth/signout`}
-                    className="px-4 py-2 text-sm text-white bg-red-500 rounded"
-                    onClick={(e) => {
-                      e.preventDefault();
-                      signOut();
-                    }}
-                  >
-                    Sign out
-                  </a>
-                </div>
-              )}
-              <button onClick={toggleNav} className="p-4">
+            <div className="flex items-center justify-between mr-4 space-x-4">
+              <div className="hidden md:block">
+                <Account />
+              </div>
+              <button onClick={toggleNav} className="p-2 border rounded-lg">
                 {!navOpen ? (
                   <svg
                     className="w-6 h-6"
@@ -129,7 +105,9 @@ export default function Header() {
       </div>
 
       {/* account */}
-      <Account />
+      <div className="md:hidden">
+        <Account />
+      </div>
     </div>
   );
 }
