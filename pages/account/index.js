@@ -155,8 +155,8 @@ function AccountSetting({ user, userDetail, authHeaders }) {
   return (
     <Layout>
       <SEO title="Pengaturan akun" description="Pengaturan akun" />
-      <div className="grid max-w-3xl gap-6 mx-auto">
-        <h1 className="py-6 text-3xl font-bold font-display">
+      <div className="flex flex-col max-w-3xl mx-auto space-y-8">
+        <h1 className="py-3 text-3xl font-bold font-display">
           Pengaturan akun
         </h1>
         <div className="">
