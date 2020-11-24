@@ -2,10 +2,10 @@ import Link from "next/link";
 
 import Layout from "components/Layout";
 import SEO from "components/Seo";
-import network from "utils/network";
+import networkServer from "utils/network/network-server";
 import { getSession } from "next-auth/client";
 import { Field, Form, Formik } from "formik";
-import networkClient from "utils/network-client";
+import networkClient from "utils/network/network-client";
 
 function UserForm({ user, submit }) {
   return (
@@ -183,7 +183,7 @@ export async function getServerSideProps(context) {
 
   if (session) {
     const options = { headers: { cookie: context.req.headers.cookie } };
-    const resToken = await network.get(
+    const resToken = await networkServer.get(
       `${process.env.NEXTAUTH_URL}/api/examples/jwt`,
       options
     );
@@ -194,7 +194,7 @@ export async function getServerSideProps(context) {
       client: token["client"],
       uid: token["uid"],
     };
-    const res = await network.get(`/user_details`, { headers: authHeaders });
+    const res = await networkServer.get(`/user_details`, { headers: authHeaders });
 
     if (res.data) {
       userDetail = res.data.user_detail;

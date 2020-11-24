@@ -5,7 +5,7 @@ import SEO from "components/Seo";
 import { getSiteMetaData } from "utils/helpers";
 import moment from "moment";
 import CallToAction from "components/CallToAction";
-import network from "utils/network";
+import networkServer from "utils/network/network-server";
 
 function Home({ data, success }) {
   const siteMetadata = getSiteMetaData();
@@ -65,7 +65,7 @@ export async function getServerSideProps() {
   let success = false;
 
   try {
-    res = await network.get(`/items`);
+    res = await networkServer.get(`/items`);
     success = true;
   } catch (e) {
     success = false;

@@ -4,7 +4,7 @@ import Layout from "components/Layout";
 import SEO from "components/Seo";
 import moment from "moment";
 import CallToAction from "components/CallToAction";
-import network from "utils/network";
+import networkServer from "utils/network/network-server";
 
 function Item({ item, editable }) {
   return (
@@ -76,10 +76,10 @@ function Item({ item, editable }) {
 export async function getServerSideProps({ params, req }) {
   let editable = false;
   // const res = await fetch(`${process.env.LOST_API_URL}/items/${params.slug}`);
-  const res = await network.get(`/items/${params.slug}`);
+  const res = await networkServer.get(`/items/${params.slug}`);
 
   const options = { headers: { cookie: req.headers.cookie } };
-  const resToken = await network.get(
+  const resToken = await networkServer.get(
     `${process.env.NEXTAUTH_URL}/api/examples/jwt`,
     options
   );

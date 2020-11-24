@@ -5,7 +5,7 @@ import SEO from "components/Seo";
 import { getSiteMetaData } from "utils/helpers";
 import moment from "moment";
 import CallToAction from "components/CallToAction";
-import network from "utils/network";
+import networkServer from "utils/network/network-server";
 import { getSession } from "next-auth/client";
 
 function Mine(props) {
@@ -76,7 +76,7 @@ export async function getServerSideProps(context) {
       uid: token["uid"],
     };
 
-    const resItem = await network.get(`/items/mine`, { headers });
+    const resItem = await networkServer.get(`/items/mine`, { headers });
 
     if (resItem.data) {
       items = resItem.data.data;

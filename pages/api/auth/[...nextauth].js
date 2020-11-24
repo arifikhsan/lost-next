@@ -1,6 +1,6 @@
 import NextAuth from "next-auth";
 import Providers from "next-auth/providers";
-import network from "utils/network";
+import networkServer from "utils/network/network-server";
 import { setHeaders } from "utils/cookies";
 import { setCookie } from "nookies";
 
@@ -81,7 +81,7 @@ const options = {
         account: { provider: account.provider },
         profile: { id: profile.id, email: profile.email },
       };
-      await network.post(`/signin_from_google`, payload);
+      await networkServer.post(`/signin_from_google`, payload);
       return Promise.resolve(true);
     },
 
@@ -111,7 +111,7 @@ const options = {
 
       if (isSignIn) {
         token.id = account.id;
-        const response = await network.post(
+        const response = await networkServer.post(
           `${process.env.LOST_API_URL}/signin_from_google`,
           { profile: { email: token.email, id: token.id } }
         );

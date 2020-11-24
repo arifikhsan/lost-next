@@ -2,9 +2,9 @@ import AccessDenied from "components/AccessDenied";
 import Layout from "components/Layout";
 import SEO from "components/Seo";
 import { getSession } from "next-auth/client";
-import network from "utils/network";
+import networkServer from "utils/network/network-server";
 import { Component } from "react";
-import networkClient from "utils/network-client";
+import networkClient from "utils/network/network-client";
 import Link from "next/link";
 import ItemForm from "components/ItemForm";
 import { pick } from "lodash";
@@ -135,8 +135,8 @@ export async function getServerSideProps(context) {
 
     console.log("headers: ", headers);
 
-    const resCategories = await network.get("/categories", { headers });
-    // const me = await network.get("/me", { headers });
+    const resCategories = await networkServer.get("/categories", { headers });
+    // const me = await networkServer.get("/me", { headers });
 
     if (resCategories.data) {
       categories = resCategories.data["data"];

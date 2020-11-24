@@ -2,9 +2,9 @@ import AccessDenied from "components/AccessDenied";
 import Layout from "components/Layout";
 import SEO from "components/Seo";
 import { getSession } from "next-auth/client";
-import network from "utils/network";
+import networkServer from "utils/network/network-server";
 import { Component } from "react";
-import networkClient from "utils/network-client";
+import networkClient from "utils/network/network-client";
 import Link from "next/link";
 import Router from "next/router";
 
@@ -105,7 +105,7 @@ export async function getServerSideProps(context) {
       uid: token["uid"],
     };
 
-    const resItem = await network.get(`/items/${context.params.slug}`, {
+    const resItem = await networkServer.get(`/items/${context.params.slug}`, {
       headers,
     });
 
