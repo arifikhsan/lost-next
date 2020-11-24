@@ -61,8 +61,8 @@ function Home({ data, success }) {
 }
 
 export async function getServerSideProps() {
-  const res = null;
-  const success = false;
+  let res = null;
+  let success = false;
 
   try {
     res = await network.get(`/items`);
