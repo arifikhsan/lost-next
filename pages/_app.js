@@ -5,8 +5,11 @@ import "typeface-merriweather";
 // import "typeface-metropolis";
 
 import { Provider } from "next-auth/client";
+import moment from 'moment'
 
 export default function MyApp({ Component, pageProps }) {
+  moment.locale("id");
+
   return (
     <Provider
       // Provider options are not required but can be useful in situations where
