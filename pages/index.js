@@ -7,8 +7,7 @@ import moment from "moment";
 import CallToAction from "components/CallToAction";
 import network from "utils/network";
 
-function Home({ data }) {
-
+function Home({ data, success }) {
   const siteMetadata = getSiteMetaData();
   const metaDescription = siteMetadata.description || "";
 
@@ -62,7 +61,15 @@ function Home({ data }) {
 }
 
 export async function getServerSideProps() {
-  const res = await network.get(`/items`);
+  const res = null;
+  const success = false;
+
+  try {
+    res = await network.get(`/items`);
+    success = true;
+  } catch (e) {
+    success = false;
+  }
   // setCookie(ctx, "from get serverside", "value", { maxAge: 14 * 24 * 60 * 60, path: "/" });
   // setCookie(null, "fromclient", "value", {
   //   maxAge: 14 * 24 * 60 * 60,
@@ -70,7 +77,7 @@ export async function getServerSideProps() {
   // });
   const data = res.data.data;
 
-  return { props: { data } };
+  return { props: { data, success } };
 }
 
 export default Home;
