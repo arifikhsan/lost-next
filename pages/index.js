@@ -39,14 +39,16 @@ function ListItem({ items, important }) {
                   );
                 })}
               </div>
-              <p className="mt-1 text-lg font-display">{item.title}</p>
-              <div className="mt-1">
-                {!isNil(item.reward) && (
-                  <p className="text-sm">
-                    Hadiah bagi penemu:{" "}
-                    <span className="font-bold">Rp.{item.reward.value}</span>
-                  </p>
-                )}
+              <div className={`mt-2` + (important && " text-gray-900 ")}>
+                <p className={`text-lg font-display font-bold`}>{item.title}</p>
+                <div className="mt-1">
+                  {!isNil(item.reward) && (
+                    <p className="text-sm">
+                      Hadiah bagi penemu:{" "}
+                      <span className="font-bold">Rp.{item.reward.value}</span>
+                    </p>
+                  )}
+                </div>
               </div>
               <div
                 className={
@@ -129,7 +131,9 @@ export async function getServerSideProps() {
   let data = {};
 
   let items = await networkServer.get(`/items?per=6`);
-  let itemsWithReward = await networkServer.get(`/items?per=6&reward=yes&condition=lost`);
+  let itemsWithReward = await networkServer.get(
+    `/items?per=6&reward=yes&condition=lost`
+  );
   let itemsLost = await networkServer.get(`/items?per=6&condition=lost`);
   let itemsFound = await networkServer.get(`/items?per=6&condition=found`);
 
