@@ -5,6 +5,7 @@ import SEO from "components/Seo";
 import moment from "moment";
 import CallToAction from "components/CallToAction";
 import networkServer from "utils/network/network-server";
+import { isNil } from "lodash";
 
 function Item({ item, editable }) {
   return (
@@ -30,7 +31,6 @@ function Item({ item, editable }) {
           <h3 className="text-xl font-semibold font-display">Informasi</h3>
           <div className="mt-2 text-sm text-gray-700">
             <p>Kondisi: {item.condition}</p>
-            {item.reward > 0 && <p>Hadiah: Rp. item.reward</p>}
             <p>Sejak: {moment(item.time_start).fromNow()}</p>
             <p>
               Kategori:{" "}
@@ -47,6 +47,15 @@ function Item({ item, editable }) {
             </p>
           </div>
         </div>
+        {!isNil(item.reward) && (
+          <div className="">
+            <h3 className="text-xl font-semibold font-display">Hadiah</h3>
+            <div className="mt-2 text-sm text-gray-700">
+              <p>Tipe: {item.reward.category}</p>
+              <p>Jumlah: Rp. {item.reward.value}</p>
+            </div>
+          </div>
+        )}
         <div className="">
           <h3 className="text-xl font-semibold font-display">Kontak</h3>
           <div className="mt-2 text-sm text-gray-700">

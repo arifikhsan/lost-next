@@ -2,7 +2,7 @@ import Link from "next/link";
 
 export default function CallToAction() {
   return (
-    <div className="mt-8">
+    <div className="mt-12">
       <h2 className="text-2xl font-bold font-display">
         Ingin lapor barang hilang/ditemukan?
       </h2>
