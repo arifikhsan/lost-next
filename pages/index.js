@@ -8,9 +8,9 @@ import CallToAction from "components/CallToAction";
 import networkServer from "utils/network/network-server";
 import literalCondition from "utils/helper/condition-helper";
 import { isNil } from "lodash";
+import ServerSleeping from "components/error/ServerSleeping";
 
 function ListItem({ items, important }) {
-  // console.log(items)
   return (
     <div className={`grid gap-4 sm:grid-cols-2 md:grid-cols-3`}>
       {items.map((item) => {
@@ -69,9 +69,19 @@ function ListItem({ items, important }) {
   );
 }
 
-function Home({ data, success }) {
+function Home({ data, success, message }) {
   const siteMetadata = getSiteMetaData();
   const metaDescription = siteMetadata.description || "";
+
+  console.log('success: ', success)
+
+  if (!success) {
+    return (
+      <Layout>
+        <ServerSleeping />
+      </Layout>
+    );
+  }
 
   return (
     <Layout>
@@ -120,32 +130,34 @@ function Home({ data, success }) {
   );
 }
 
-// penting
-// berhadiah
-// hilang
-// ditemukan
-// baru baru ini
-
 export async function getServerSideProps() {
   let success = false;
+  let message = "";
   let data = {};
 
-  let items = await networkServer.get(`/items?per=6`);
-  let itemsWithReward = await networkServer.get(
-    `/items?per=6&reward=yes&condition=lost`
-  );
-  let itemsLost = await networkServer.get(`/items?per=6&condition=lost`);
-  let itemsFound = await networkServer.get(`/items?per=6&condition=found`);
+  try {
+    let items = await networkServer.get(`/items?per=6`);
+    let itemsWithReward = await networkServer.get(
+      `/items?per=6&reward=yes&condition=lost`
+    );
+    let itemsLost = await networkServer.get(`/items?per=6&condition=lost`);
+    let itemsFound = await networkServer.get(`/items?per=6&condition=found`);
 
-  data = {
-    important: items.data.data,
-    reward: itemsWithReward.data.data,
-    lost: itemsLost.data.data,
-    found: itemsFound.data.data,
-    recent: items.data.data,
-  };
+    data = {
+      important: items.data.data,
+      reward: itemsWithReward.data.data,
+      lost: itemsLost.data.data,
+      found: itemsFound.data.data,
+      recent: items.data.data,
+    };
 
-  return { props: { data, success } };
+    success = true
+  } catch (err) {
+    console.log('err: ', err);
+    // message = err.message;
+  }
+
+  return { props: { data, success, message } };
 }
 
 export default Home;

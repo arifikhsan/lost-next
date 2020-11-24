@@ -8,7 +8,7 @@ export default {
     },
     description: "Website untuk melaporkan barang yang hilang atau ditemukan",
     siteUrl: "https://bantutemu.now.sh/",
-    language: "en-US",
+    language: "id",
     social: {
       twitter: "realarifikhsan",
     },

@@ -8,7 +8,9 @@ export default class MyDocument extends Document {
 
     return (
       <Html lang={siteMetadata.language}>
-        <Head />
+        <Head>
+          <meta name="dicoding:email" content="arif.ikhsanudin.id@gmail.com" />
+        </Head>
         <body>
           <Main />
           <NextScript />

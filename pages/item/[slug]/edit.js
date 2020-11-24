@@ -1,4 +1,4 @@
-import AccessDenied from "components/AccessDenied";
+import AccessDenied from "components/error/AccessDenied";
 import Layout from "components/Layout";
 import SEO from "components/Seo";
 import { getSession } from "next-auth/client";

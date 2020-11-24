@@ -2,9 +2,9 @@ import { signIn } from "next-auth/client";
 
 export default function AccessDenied() {
   return (
-    <div className="flex flex-col space-y-6">
-      <h1 className="text-xl font-bold text-red-500 font-display">
-        Access Denied
+    <div className="flex flex-col items-start mt-6 space-y-6">
+      <h1 className="text-3xl font-bold text-red-500 font-display">
+        Akses ditolak
       </h1>
       <p>Silahkan login dulu 😇😆</p>
       <div>
