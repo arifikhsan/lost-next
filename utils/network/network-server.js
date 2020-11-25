@@ -15,7 +15,7 @@ const networkServer = axios.create({
 
 networkServer.interceptors.request.use(async (response) => {
   // response.timeout = 1;
-  response.timeout = 5000;
+  response.timeout = 10000;
   // console.log("start axios interceptor");
   // console.log("Request response:", response);
 
