@@ -2,7 +2,7 @@ import axios from "axios";
 import { setupCache } from "axios-cache-adapter";
 
 const cache = setupCache({
-  maxAge: 2 * 24 * 60 * 60 * 1000, // 15 menit
+  maxAge: 24 * 60 * 60 * 1000, // 1 hari
 });
 
 const networkServer = axios.create({

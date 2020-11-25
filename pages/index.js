@@ -8,7 +8,12 @@ import CallToAction from "components/CallToAction";
 import networkServer from "utils/network/network-server";
 import literalCondition from "utils/helper/condition-helper";
 import { isNil } from "lodash";
-import ServerSleeping from "components/error/ServerSleeping";
+import {
+  useItems,
+  useItemsWithReward,
+  useItemsLost,
+  useItemsFound,
+} from "utils/network/swr-hooks";
 
 function ListItem({ items, important }) {
   return (
@@ -73,15 +78,22 @@ function Home({ data, success, message }) {
   const siteMetadata = getSiteMetaData();
   const metaDescription = siteMetadata.description || "";
 
-  console.log('success: ', success)
+  const { entries, isLoading } = useItems();
+  const entriesReward = useItemsWithReward();
+  const entriesLost = useItemsLost();
+  const entriesFound = useItemsFound();
 
-  if (!success) {
-    return (
-      <Layout>
-        <ServerSleeping />
-      </Layout>
-    );
-  }
+  // console.log('success: ', success)
+  // console.log("entries: ", entriesReward.entries);
+  // console.log("isLoading: ", entriesReward.isLoading);
+
+  // if (!success) {
+  //   return (
+  //     <Layout>
+  //       <ServerSleeping />
+  //     </Layout>
+  //   );
+  // }
 
   return (
     <Layout>
@@ -95,7 +107,11 @@ function Home({ data, success, message }) {
         <div>
           <h2 className="text-2xl font-bold font-display">Penting</h2>
           <div className="mt-4">
-            <ListItem items={data.important} important />
+            {isLoading ? (
+              <p>Loading...</p>
+            ) : (
+              <ListItem items={entries.data} important />
+            )}
           </div>
         </div>
         <div>
@@ -103,25 +119,41 @@ function Home({ data, success, message }) {
             Berhadiah bagi penemu
           </h2>
           <div className="mt-4">
-            <ListItem items={data.reward} />
+            {entriesReward.isLoading ? (
+              <p>Loading...</p>
+            ) : (
+              <ListItem items={entriesReward.entries.data} />
+            )}
           </div>
         </div>
         <div>
           <h2 className="text-2xl font-bold font-display">Hilang</h2>
           <div className="mt-4">
-            <ListItem items={data.lost} />
+            {entriesLost.isLoading ? (
+              <p>Loading...</p>
+            ) : (
+              <ListItem items={entriesLost.entries.data} />
+            )}
           </div>
         </div>
         <div>
           <h2 className="text-2xl font-bold font-display">Ditemukan</h2>
           <div className="mt-4">
-            <ListItem items={data.found} />
+            {entriesFound.isLoading ? (
+              <p>Loading...</p>
+            ) : (
+              <ListItem items={entriesFound.entries.data} />
+            )}
           </div>
         </div>
         <div>
           <h2 className="text-2xl font-bold font-display">Baru baru ini</h2>
           <div className="mt-4">
-            <ListItem items={data.recent} />
+            {isLoading ? (
+              <p>Loading...</p>
+            ) : (
+              <ListItem items={entries.data} />
+            )}
           </div>
         </div>
         <CallToAction />
@@ -130,34 +162,34 @@ function Home({ data, success, message }) {
   );
 }
 
-export async function getServerSideProps() {
-  let success = false;
-  let message = "";
-  let data = {};
+// export async function getServerSideProps() {
+//   let success = false;
+//   let message = "";
+//   let data = {};
 
-  try {
-    let items = await networkServer.get(`/items?per=6`);
-    let itemsWithReward = await networkServer.get(
-      `/items?per=6&reward=yes&condition=lost`
-    );
-    let itemsLost = await networkServer.get(`/items?per=6&condition=lost`);
-    let itemsFound = await networkServer.get(`/items?per=6&condition=found`);
+//   try {
+//     let items = await networkServer.get(`/items?per=6`);
+//     let itemsWithReward = await networkServer.get(
+//       `/items?per=6&reward=yes&condition=lost`
+//     );
+//     let itemsLost = await networkServer.get(`/items?per=6&condition=lost`);
+//     let itemsFound = await networkServer.get(`/items?per=6&condition=found`);
 
-    data = {
-      important: items.data.data,
-      reward: itemsWithReward.data.data,
-      lost: itemsLost.data.data,
-      found: itemsFound.data.data,
-      recent: items.data.data,
-    };
+//     data = {
+//       important: items.data.data,
+//       reward: itemsWithReward.data.data,
+//       lost: itemsLost.data.data,
+//       found: itemsFound.data.data,
+//       recent: items.data.data,
+//     };
 
-    success = true
-  } catch (err) {
-    console.log('err: ', err);
-    // message = err.message;
-  }
+//     success = true;
+//   } catch (err) {
+//     console.log("err: ", err);
+//     // message = err.message;
+//   }
 
-  return { props: { data, success, message } };
-}
+//   return { props: { data, success, message } };
+// }
 
 export default Home;
