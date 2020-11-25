@@ -2819,6 +2819,11 @@ follow-redirects@^1.10.0:
   resolved "https://registry.yarnpkg.com/follow-redirects/-/follow-redirects-1.13.0.tgz#b42e8d93a2a7eea5ed88633676d6597bc8e384db"
   integrity sha512-aq6gF1BEKje4a9i9+5jimNFIpq4Q1WiwBToeRK5NvZBd/TRsmW8BsJfOEGkr76TbOyPVD3OVDN910EcUNtRYEA==
 
+fontsource-metropolis@^3.0.1:
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/fontsource-metropolis/-/fontsource-metropolis-3.0.1.tgz#ed003537ac8531849cbed70b7bad557d1cbd553e"
+  integrity sha512-Cmog2eixbXddQgRXgf138p6ywlIo6kOzjbz+FvTXrnl5cSwTeiIO8bjqkTJe969ckKjOEZSf0WhgQdf4/DPLfw==
+
 for-in@^1.0.2:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/for-in/-/for-in-1.0.2.tgz#81068d295a8142ec0ac726c6e2200c30fb6d5e80"
@@ -7416,11 +7421,6 @@ typeface-merriweather@^1.1.13:
   version "1.1.13"
   resolved "https://registry.yarnpkg.com/typeface-merriweather/-/typeface-merriweather-1.1.13.tgz#c6f0564bc0346174f4da8daf282d27bfa802f06f"
   integrity sha512-ho6xe/y/uHIKVXsFtK+dJfRCD5KZqJCMYTCcXfuCwQHQbeQ83a7hVkxfRMTEIjZOSXw5SevOjnwJuZ5QgWEHiw==
-
-typeface-metropolis@^1.1.13:
-  version "1.1.13"
-  resolved "https://registry.yarnpkg.com/typeface-metropolis/-/typeface-metropolis-1.1.13.tgz#58e4958d8ca13be8046e90f48893aca466fb9915"
-  integrity sha512-ITgToMpgOfd1nljHC/qlw3ufusTUdiXXJur6wlp2IqS1IIcRiVFjvoXL73d8t886LW4p4aZz9KAx3iPCYn3YMw==
 
 typeface-open-sans@^1.1.13:
   version "1.1.13"

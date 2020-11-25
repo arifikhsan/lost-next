@@ -2,10 +2,10 @@ import "styles/global.css";
 
 import "typeface-open-sans";
 import "typeface-merriweather";
-// import "typeface-metropolis";
+import "fontsource-metropolis/all.css";
 
 import { Provider } from "next-auth/client";
-import moment from 'moment'
+import moment from "moment";
 
 export default function MyApp({ Component, pageProps }) {
   moment.locale("id");
