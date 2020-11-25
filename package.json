@@ -40,9 +40,9 @@
   },
   "devDependencies": {
     "@tailwindcss/custom-forms": "^0.2.1",
-    "@tailwindcss/typography": "^0.2.0",
+    "@tailwindcss/typography": "^0.3.1",
     "gray-matter": "^4.0.2",
-    "tailwindcss": "^1.9.6"
+    "tailwindcss": "^2.0.1"
   },
   "license": "MIT",
   "repository": {
