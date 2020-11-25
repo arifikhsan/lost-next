@@ -25,7 +25,7 @@ function ListItem({ items, important }) {
               className={
                 `p-4 transition duration-500 rounded hover:shadow ` +
                 (important &&
-                  ` bg-gradient-to-tr from-teal-400 via-blue-500 to-primary `) +
+                  ` bg-gradient-to-tr from-blue-400 to-primary `) +
                 (!important && ` border`)
               }
             >
