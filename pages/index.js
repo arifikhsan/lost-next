@@ -5,7 +5,6 @@ import SEO from "components/Seo";
 import { getSiteMetaData } from "utils/helpers";
 import moment from "moment";
 import CallToAction from "components/CallToAction";
-import networkServer from "utils/network/network-server";
 import literalCondition from "utils/helper/condition-helper";
 import { isNil } from "lodash";
 import {
@@ -105,7 +104,7 @@ function Home({ data, success, message }) {
           </h1>
         </div>
         <div>
-          <h2 className="text-2xl font-bold font-display">Penting</h2>
+          <h2 className="text-2xl font-bold font-display">Baru-baru ini</h2>
           <div className="mt-4">
             {isLoading ? (
               <p>Loading...</p>
@@ -143,16 +142,6 @@ function Home({ data, success, message }) {
               <p>Loading...</p>
             ) : (
               <ListItem items={entriesFound.entries.data} />
-            )}
-          </div>
-        </div>
-        <div>
-          <h2 className="text-2xl font-bold font-display">Baru baru ini</h2>
-          <div className="mt-4">
-            {isLoading ? (
-              <p>Loading...</p>
-            ) : (
-              <ListItem items={entries.data} />
             )}
           </div>
         </div>
