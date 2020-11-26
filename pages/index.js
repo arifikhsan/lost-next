@@ -23,9 +23,9 @@ function ListItem({ items, important }) {
           <Link key={item.id} href={`item/${item.slug}`}>
             <a
               className={
-                `p-4 transition duration-500 rounded hover:shadow ` +
+                `p-4 transition duration-500 rounded hover:shadow-lg ` +
                 (important &&
-                  ` bg-gradient-to-tr from-blue-400 to-primary `) +
+                  ` bg-gradient-to-r to-blue-400 via-blue-500 from-primary `) +
                 (!important && ` border`)
               }
             >
@@ -44,7 +44,7 @@ function ListItem({ items, important }) {
                   );
                 })}
               </div>
-              <div className={`mt-2` + (important && " text-gray-900 ")}>
+              <div className={`mt-2` + (important && " text-secondary ")}>
                 <p className={`text-lg font-display font-bold`}>{item.title}</p>
                 <div className="mt-1">
                   {!isNil(item.reward) && (
