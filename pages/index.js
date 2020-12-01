@@ -14,37 +14,27 @@ import {
   useItemsFound,
 } from "utils/network/swr-hooks";
 
-function ListItem({ items, important }) {
+function ListItem({ items }) {
   return (
-    <div className={`grid gap-4 sm:grid-cols-2 md:grid-cols-3`}>
+    <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-3">
       {items.map((item) => {
         return (
           <Link key={item.id} href={`item/${item.slug}`}>
-            <a
-              className={
-                `p-4 transition duration-500 rounded hover:shadow-lg ` +
-                (important &&
-                  ` bg-gradient-to-r to-blue-400 via-blue-500 from-primary `) +
-                (!important && ` border`)
-              }
-            >
+            <a className="p-4 transition duration-500 rounded bg-gradient-to-br to-blue-400 via-blue-500 from-primary hover:shadow-lg">
               <div className="text-xs">
                 {item.categories.map((category) => {
                   const isFirst = item.categories[0].id == category.id;
 
                   return (
-                    <span
-                      key={category.id}
-                      className={important ? "text-white" : "text-gray-700"}
-                    >
+                    <span key={category.id} className={"text-secondary"}>
                       {!isFirst && <span>, </span>}
                       {category.name}
                     </span>
                   );
                 })}
               </div>
-              <div className={`mt-2` + (important && " text-secondary ")}>
-                <p className={`text-lg font-display font-bold`}>{item.title}</p>
+              <div className="mt-2 text-secondary">
+                <p className="text-lg font-bold font-display">{item.title}</p>
                 <div className="mt-1">
                   {!isNil(item.reward) && (
                     <p className="text-sm">
@@ -54,11 +44,7 @@ function ListItem({ items, important }) {
                   )}
                 </div>
               </div>
-              <div
-                className={
-                  `mt-3 text-xs ` + (important ? `text-white` : `text-gray-700`)
-                }
-              >
+              <div className="mt-3 text-xs text-secondary">
                 <p>
                   {literalCondition(item.condition)}{" "}
                   {moment(item.time_start).fromNow()}
@@ -106,11 +92,7 @@ function Home({ data, success, message }) {
         <div>
           <h2 className="text-2xl font-bold font-display">Baru-baru ini</h2>
           <div className="mt-4">
-            {isLoading ? (
-              <p>Loading...</p>
-            ) : (
-              <ListItem items={entries.data} important />
-            )}
+            {isLoading ? <p>Loading...</p> : <ListItem items={entries.data} />}
           </div>
         </div>
         <div>
