@@ -6,6 +6,16 @@ import "fontsource-metropolis/all.css";
 
 import { Provider } from "next-auth/client";
 import moment from "moment";
+import Router from "next/router";
+import NProgress from "nprogress";
+import Head from "next/head";
+
+Router.events.on("routeChangeStart", (url) => {
+  console.log(`Loading: ${url}`);
+  NProgress.start();
+});
+Router.events.on("routeChangeComplete", () => NProgress.done());
+Router.events.on("routeChangeError", () => NProgress.done());
 
 export default function MyApp({ Component, pageProps }) {
   moment.locale("id");
@@ -31,6 +41,9 @@ export default function MyApp({ Component, pageProps }) {
       }}
       session={pageProps.session}
     >
+      <Head>
+        <link rel="stylesheet" type="text/css" href="/nprogress.css" />
+      </Head>
       <Component {...pageProps} />{" "}
     </Provider>
   );
