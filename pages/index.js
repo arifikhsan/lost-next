@@ -84,10 +84,19 @@ function Home({ data, success, message }) {
     <Layout>
       <SEO title="BantuTemu" description={metaDescription} />
       <div className="grid gap-8">
-        <div className="lg:text-center">
-          <h1 className="py-4 text-3xl font-bold sm:text-4xl lg:text-5xl md:py-12 text-primary font-display">
+        <div className="md:text-center md:py-12">
+          <h1 className="py-4 text-3xl font-bold sm:text-4xl lg:text-5xl text-primary font-display">
             {metaDescription}
           </h1>
+          <blockquote className="text-sm italic md:mt-4">
+            "Dari Zaid bin Khalid al-Juhani RA. [diriwayatkan] ia berkata:
+            Seorang laki-laki datang kepada Rasulullah SAW. lalu ia bertanya
+            kepada beliau mengenai al-luqathah (barang temuan), maka beliau
+            bersabda: Kenali lah dompetnya dan talinya, kemudian umumkan selama
+            satu tahun. Jika pemiliknya datang, (maka serahkan kepadanya), dan
+            jika tidak, maka barang itu terserah kepadamu” [HR. al-Bukhari dan
+            Muslim]."
+          </blockquote>
         </div>
         <div>
           <h2 className="text-2xl font-bold font-display">Baru-baru ini</h2>
