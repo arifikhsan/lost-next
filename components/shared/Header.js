@@ -11,7 +11,7 @@ export default function Header() {
   const toggleNav = () => setNavOpen(!navOpen);
 
   return (
-    <div>
+    <>
       <div className="sticky top-0 z-40 bg-white border-b">
         <div className="max-w-5xl mx-auto">
           <div className="flex items-center justify-between py-3">
@@ -20,7 +20,7 @@ export default function Header() {
                 <img src="/logo.svg" alt="logo bantutemu" />
               </a>
             </Link>
-            <div className="flex items-center justify-between mr-4 space-x-4">
+            <div className="flex items-center justify-between mr-4">
               <div className="hidden md:block">
                 <Account />
               </div>
@@ -112,6 +112,6 @@ export default function Header() {
       <div className="md:hidden">
         <Account />
       </div>
-    </div>
+    </>
   );
 }

@@ -13,6 +13,7 @@ import {
   useItemsLost,
   useItemsFound,
 } from "utils/network/swr-hooks";
+import SearchItemForm from "components/SearchItemForm";
 
 function ListItem({ items }) {
   return (
@@ -59,7 +60,7 @@ function ListItem({ items }) {
   );
 }
 
-function Home({ data, success, message }) {
+function IndexPage({ data, success, message }) {
   const siteMetadata = getSiteMetaData();
   const metaDescription = siteMetadata.description || "";
 
@@ -67,18 +68,6 @@ function Home({ data, success, message }) {
   const entriesReward = useItemsWithReward();
   const entriesLost = useItemsLost();
   const entriesFound = useItemsFound();
-
-  // console.log('success: ', success)
-  // console.log("entries: ", entriesReward.entries);
-  // console.log("isLoading: ", entriesReward.isLoading);
-
-  // if (!success) {
-  //   return (
-  //     <Layout>
-  //       <ServerSleeping />
-  //     </Layout>
-  //   );
-  // }
 
   return (
     <Layout>
@@ -99,10 +88,14 @@ function Home({ data, success, message }) {
           </blockquote>
         </div>
         <div>
+          <SearchItemForm />
+        </div>
+        <div>
           <h2 className="text-2xl font-bold font-display">Baru-baru ini</h2>
           <div className="mt-4">
             {isLoading ? <p>Loading...</p> : <ListItem items={entries.data} />}
           </div>
+          <MoreButton />
         </div>
         <div>
           <h2 className="text-2xl font-bold font-display">
@@ -115,6 +108,7 @@ function Home({ data, success, message }) {
               <ListItem items={entriesReward.entries.data} />
             )}
           </div>
+          <MoreButton />
         </div>
         <div>
           <h2 className="text-2xl font-bold font-display">Hilang</h2>
@@ -125,6 +119,7 @@ function Home({ data, success, message }) {
               <ListItem items={entriesLost.entries.data} />
             )}
           </div>
+          <MoreButton />
         </div>
         <div>
           <h2 className="text-2xl font-bold font-display">Ditemukan</h2>
@@ -135,6 +130,7 @@ function Home({ data, success, message }) {
               <ListItem items={entriesFound.entries.data} />
             )}
           </div>
+          <MoreButton />
         </div>
         <CallToAction />
       </div>
@@ -172,4 +168,16 @@ function Home({ data, success, message }) {
 //   return { props: { data, success, message } };
 // }
 
-export default Home;
+export default IndexPage;
+
+function MoreButton() {
+  return (
+    <Link href="/item">
+      <a>
+        <div className="py-2 my-6 text-sm text-center text-white rounded bg-primary">
+          Lihat lebih banyak...
+        </div>
+      </a>
+    </Link>
+  );
+}

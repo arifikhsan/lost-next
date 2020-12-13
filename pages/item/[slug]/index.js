@@ -6,6 +6,7 @@ import moment from "moment";
 import CallToAction from "components/CallToAction";
 import networkServer from "utils/network/network-server";
 import { isNil } from "lodash";
+import literalCondition from "utils/helper/condition-helper";
 
 function Item({ item, editable }) {
   return (
@@ -30,7 +31,7 @@ function Item({ item, editable }) {
         <div className="">
           <h3 className="text-xl font-semibold font-display">Informasi</h3>
           <div className="mt-2 text-sm text-gray-700">
-            <p>Kondisi: {item.condition}</p>
+            <p>Kondisi: {literalCondition(item.condition)}</p>
             <p>Sejak: {moment(item.time_start).fromNow()}</p>
             <p>
               Kategori:{" "}
