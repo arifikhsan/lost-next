@@ -11,6 +11,7 @@ function SearchItemForm() {
       {({ handleSubmit }) => {
         return (
           <Form
+            className="w-full"
             onSubmit={(e) => {
               e.preventDefault();
               handleSubmit();
