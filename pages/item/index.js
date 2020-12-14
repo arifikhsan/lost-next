@@ -37,7 +37,7 @@ export default class Home extends Component {
             <span>Filter</span>
           </button>
         </div>
-        <div className="grid gap-4 mt-4 sm:grid-cols-2 md:grid-cols-3">
+        <div className="grid gap-4 my-4 sm:grid-cols-2 md:grid-cols-3">
           {items.data.map((item) => {
             return <ItemCard key={item.id} item={item} />;
           })}
