@@ -7,6 +7,7 @@ import Pagination from "components/Pagination";
 import ItemCard from "components/ItemCard";
 import { Component } from "react";
 import networkServer from "utils/network/network-server";
+import { isEmpty } from "lodash";
 
 export default class Home extends Component {
   render() {
@@ -40,6 +41,14 @@ export default class Home extends Component {
           {items.data.map((item) => {
             return <ItemCard key={item.id} item={item} />;
           })}
+          {isEmpty(items.data) && (
+            <div className="py-6 text-center">
+              <h1 className="text-3xl font-bold text-yellow-500 font-display">
+                Laporan tidak ditemukan 😭😭
+              </h1>
+              <p className="mt-4 text-sm">Coba ulangi dengan kata kunci lain</p>
+            </div>
+          )}
         </div>
         <Pagination pagination={items.pagination} />
       </Layout>
