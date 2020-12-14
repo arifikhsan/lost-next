@@ -13,19 +13,23 @@ const networkServer = axios.create({
   },
 });
 
-networkServer.interceptors.request.use(async (response) => {
-  // response.timeout = 1;
-  response.timeout = 10000;
-  // console.log("start axios interceptor");
-  // console.log("Request response:", response);
+networkServer.interceptors.request.use(
+  async (response) => {
+    // response.timeout = 1;
+    response.timeout = 10000;
+    // console.log("start axios interceptor");
+    // console.log(response.url);
+    // console.log("Request response:", response);
 
-  // const length = await cache.store.length();
-  // console.log("Cache store length:", length);
+    // const length = await cache.store.length();
+    // console.log("Cache store length:", length);
 
-  return response;
-}, (err) => {
-  return Promise.resolve(err)
-});
+    return response;
+  },
+  (err) => {
+    return Promise.resolve(err);
+  }
+);
 
 networkServer.interceptors.response.use(
   (res) => {
