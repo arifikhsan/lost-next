@@ -1,7 +1,7 @@
 import Link from "next/link";
 
 export default function Pagination({ pagination }) {
-  console.log(pagination);
+
   const prevLink = () => {
     if (pagination.is_first_page) {
       return "/item";

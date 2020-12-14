@@ -9,18 +9,15 @@ import { Component } from "react";
 import networkServer from "utils/network/network-server";
 
 export default class Home extends Component {
-  state = {a: 123}
-
   render() {
     const siteMetaData = getSiteMetaData();
-    const {items} = this.props
+    const { items } = this.props;
 
-    // return <p>pe</p>
     return (
       <Layout>
         <SEO title="Beranda" description={siteMetaData.description} />
         <div className="flex justify-between w-full space-x-2">
-          <SearchItemForm />
+          <SearchItemForm initQuery={this.props.query.query} />
           <button className="inline-flex items-center justify-center p-2 space-x-1 text-sm rounded bg-primary text-secondary">
             <svg
               className="w-6 h-6"
@@ -51,11 +48,12 @@ export default class Home extends Component {
 }
 
 export async function getServerSideProps({ query }) {
-  const params = { page: query.page || 1, per: query.per || 10 }
+  const params = { page: query.page || 1, per: query.per || 10 };
+  if (query.query) {
+    params.query = query.query;
+  }
   const res = await networkServer.get("/items", { params });
-  const items = res.data
-  // console.log(items)
-  // const items = {data: [], pagination: {}}
+  const items = res.data;
 
-  return { props: { items } };
+  return { props: { items, query } };
 }

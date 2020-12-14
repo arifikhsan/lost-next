@@ -1,29 +1,28 @@
 import { Field, Form, Formik } from "formik";
-import { searchItems } from "repository/item-repository";
+import Router from "next/router";
 
-function SearchItemForm({ updateItems }) {
+function SearchItemForm({ initQuery }) {
   return (
     <Formik
-      initialValues={{ query: "" }}
-      onSubmit={async (values) => {
-        const res = await searchItems(values.query);
-        updateItems(res);
+      initialValues={{ query: initQuery }}
+      onSubmit={(values) => {
+        Router.push(`/item?query=${values.query}`);
       }}
     >
       {({ handleSubmit }) => {
         return (
           <Form
-            className="w-full"
             onSubmit={(e) => {
               e.preventDefault();
               handleSubmit();
             }}
           >
-            <div className="flex items-center justify-between space-x-2">
+            <div className="flex items-center justify-between w-full space-x-2">
               <Field
-                name="query"
                 className="w-full p-2 text-sm border rounded-md focus:outline-none"
                 placeholder="Cari barang hilang/temuan..."
+                minLength="3"
+                name="query"
                 required
               />
               <button
