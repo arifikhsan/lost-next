@@ -1,11 +1,13 @@
 import { Field, Form, Formik } from "formik";
+import { searchItems } from "repository/item-repository";
 
-function SearchItemForm() {
+function SearchItemForm({ updateItems }) {
   return (
     <Formik
       initialValues={{ query: "" }}
-      onSubmit={(values) => {
-        console.log(values);
+      onSubmit={async (values) => {
+        const res = await searchItems(values.query);
+        updateItems(res);
       }}
     >
       {({ handleSubmit }) => {

@@ -6,47 +6,28 @@ function fetcher(url) {
 }
 
 export function useItems() {
-  const { data, error } = useSWR(
-    `${process.env.NEXT_PUBLIC_LOST_API_URL}/items?per=6`,
-    fetcher
-  );
-
-  return {
-    entries: data,
-    isLoading: !error && !data,
-    isError: error,
-  };
+  return swr("/items?per=6");
 }
 
 export function useItemsWithReward() {
-  const { data, error } = useSWR(
-    `${process.env.NEXT_PUBLIC_LOST_API_URL}/items?per=6&reward=yes&condition=lost`,
-    fetcher
-  );
-
-  return {
-    entries: data,
-    isLoading: !error && !data,
-    isError: error,
-  };
+  return swr("/items?per=6&reward=yes&condition=lost");
 }
 
 export function useItemsLost() {
-  const { data, error } = useSWR(
-    `${process.env.NEXT_PUBLIC_LOST_API_URL}/items?per=6&condition=lost`,
-    fetcher
-  );
-
-  return {
-    entries: data,
-    isLoading: !error && !data,
-    isError: error,
-  };
+  return swr("/items?per=6&condition=lost");
 }
 
 export function useItemsFound() {
+  return swr("/items?per=6&condition=lost");
+}
+
+export function useItemsSearch(query) {
+  return swr(`/items/search?query=${query}`);
+}
+
+function swr(url) {
   const { data, error } = useSWR(
-    `${process.env.NEXT_PUBLIC_LOST_API_URL}//items?per=6&condition=lost`,
+    process.env.NEXT_PUBLIC_LOST_API_URL + url,
     fetcher
   );
 

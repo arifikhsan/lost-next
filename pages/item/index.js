@@ -5,16 +5,23 @@ import { getItems } from "repository/item-repository";
 import { getSiteMetaData } from "utils/helpers";
 
 import ItemCard from "components/ItemCard";
+import { useState } from "react";
 
-export default function Home({ items }) {
+export default function Home({ initialItems }) {
   const siteMetaData = getSiteMetaData();
 
-  console.log(items);
+  const [items, setItems] = useState(initialItems);
+
+  // console.log(items);
+  const updateItems = (newItems) => {
+    setItems(newItems);
+  };
+
   return (
     <Layout>
       <SEO title="Beranda" description={siteMetaData.description} />
       <div className="flex justify-between w-full space-x-2">
-        <SearchItemForm />
+        <SearchItemForm updateItems={updateItems} />
         <button className="inline-flex items-center justify-center p-2 space-x-1 text-sm rounded bg-primary text-secondary">
           <svg
             className="w-6 h-6"
@@ -43,7 +50,7 @@ export default function Home({ items }) {
 }
 
 export async function getServerSideProps() {
-  const items = await getItems();
+  const initialItems = await getItems();
 
-  return { props: { items } };
+  return { props: { initialItems } };
 }
