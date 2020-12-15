@@ -87,7 +87,7 @@ function IndexPage({ data, success, message }) {
             Muslim]."
           </blockquote>
         </div>
-        <div>
+        <div className="max-w-md">
           <SearchItemForm />
         </div>
         <div>
@@ -95,7 +95,9 @@ function IndexPage({ data, success, message }) {
           <div className="mt-4">
             {isLoading ? <p>Loading...</p> : <ListItem items={entries.data} />}
           </div>
-          <MoreButton />
+          <div className="md:flex md:justify-end">
+            <MoreButton />
+          </div>
         </div>
         <div>
           <h2 className="text-2xl font-bold font-display">
@@ -108,7 +110,9 @@ function IndexPage({ data, success, message }) {
               <ListItem items={entriesReward.entries.data} />
             )}
           </div>
-          <MoreButton />
+          <div className="md:flex md:justify-end">
+            <MoreButton />
+          </div>
         </div>
         <div>
           <h2 className="text-2xl font-bold font-display">Hilang</h2>
@@ -119,7 +123,9 @@ function IndexPage({ data, success, message }) {
               <ListItem items={entriesLost.entries.data} />
             )}
           </div>
-          <MoreButton />
+          <div className="md:flex md:justify-end">
+            <MoreButton />
+          </div>
         </div>
         <div>
           <h2 className="text-2xl font-bold font-display">Ditemukan</h2>
@@ -130,7 +136,9 @@ function IndexPage({ data, success, message }) {
               <ListItem items={entriesFound.entries.data} />
             )}
           </div>
-          <MoreButton />
+          <div className="md:flex md:justify-end">
+            <MoreButton />
+          </div>
         </div>
         <CallToAction />
       </div>
@@ -173,10 +181,8 @@ export default IndexPage;
 function MoreButton() {
   return (
     <Link href="/item">
-      <a>
-        <div className="py-2 my-6 text-sm text-center text-white rounded bg-primary">
-          Lihat lebih banyak...
-        </div>
+      <a className="block py-2 my-6 text-sm text-center transition duration-500 bg-white border rounded-md md:px-4 hover:text-secondary hover:bg-primary text-primary">
+        Lihat lebih banyak...
       </a>
     </Link>
   );
