@@ -2,7 +2,6 @@ import { range } from "lodash";
 import Link from "next/link";
 
 export default function Pagination({ pagination, searchQuery }) {
-  console.log(pagination);
   let url = "/item";
   let params = { per: 10 };
 
