@@ -42,7 +42,7 @@ export default class Home extends Component {
             return <ItemCard key={item.id} item={item} />;
           })}
           {isEmpty(items.data) && (
-            <div className="py-6 text-center">
+            <div className="py-6 text-center col-span-full">
               <h1 className="text-3xl font-bold text-red-500 font-display">
                 Laporan tidak ditemukan 😭😭
               </h1>
