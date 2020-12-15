@@ -1,7 +1,7 @@
+import { range, times } from "lodash";
 import Link from "next/link";
 
 export default function Pagination({ pagination }) {
-  console.log(pagination);
   const prevLink = () => {
     if (pagination.is_first_page) {
       return "/item";
@@ -19,6 +19,28 @@ export default function Pagination({ pagination }) {
       return `/item?page=${pagination.next_page}&per=10`;
     } else {
       return "/item";
+    }
+  };
+
+  const pageRange = () => {
+    if (pagination.current_page == 1 && pagination.current_page + 4 <= 5) {
+      return range(1, 5 + 1);
+    } else if (pagination.total_pages < 5) {
+      return range(1, pagination.total_pages);
+    } else if (pagination.total_pages == 5) {
+      return range(1, pagination.total_pages + 1);
+    } else if (pagination.current_page - 2 == 0) {
+      return range(1, pagination.current_page + 3 + 1);
+    } else if (
+      pagination.current_page - 2 > 0 &&
+      pagination.current_page + 2 <= pagination.total_pages
+    ) {
+      return range(
+        pagination.current_page - 2,
+        pagination.current_page + 2 + 1
+      );
+    } else {
+      return range(pagination.total_pages - 4, pagination.total_pages + 1);
     }
   };
 
@@ -61,83 +83,103 @@ export default function Pagination({ pagination }) {
             className="relative z-0 inline-flex -space-x-px shadow-sm"
             aria-label="Pagination"
           >
-            <a
-              href="#"
-              className="relative inline-flex items-center px-2 py-2 text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-l-md hover:bg-gray-50"
-            >
-              <span className="sr-only">Previous</span>
-              <svg
-                className="w-5 h-5"
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 20 20"
-                fill="currentColor"
-                aria-hidden="true"
+            {pagination.is_first_page ? (
+              <a
+                href="#"
+                className="relative inline-flex items-center px-2 py-2 text-sm font-medium text-gray-500 bg-white border border-gray-300 opacity-50 rounded-l-md hover:bg-gray-50"
               >
-                <path
-                  fillRule="evenodd"
-                  d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
-                  clipRule="evenodd"
-                />
-              </svg>
-            </a>
-            <a
-              href="#"
-              className="relative inline-flex items-center px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 hover:bg-gray-50"
-            >
-              1
-            </a>
-            <a
-              href="#"
-              className="relative inline-flex items-center px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 hover:bg-gray-50"
-            >
-              2
-            </a>
-            <a
-              href="#"
-              className="relative items-center hidden px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 md:inline-flex hover:bg-gray-50"
-            >
-              3
-            </a>
-            <span className="relative inline-flex items-center px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300">
-              ...
-            </span>
-            <a
-              href="#"
-              className="relative items-center hidden px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 md:inline-flex hover:bg-gray-50"
-            >
-              8
-            </a>
-            <a
-              href="#"
-              className="relative inline-flex items-center px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 hover:bg-gray-50"
-            >
-              9
-            </a>
-            <a
-              href="#"
-              className="relative inline-flex items-center px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 hover:bg-gray-50"
-            >
-              10
-            </a>
-            <a
-              href="#"
-              className="relative inline-flex items-center px-2 py-2 text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-r-md hover:bg-gray-50"
-            >
-              <span className="sr-only">Next</span>
-              <svg
-                className="w-5 h-5"
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 20 20"
-                fill="currentColor"
-                aria-hidden="true"
+                <span className="sr-only">Previous</span>
+                <svg
+                  className="w-5 h-5"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 20 20"
+                  fill="currentColor"
+                  aria-hidden="true"
+                >
+                  <path
+                    fillRule="evenodd"
+                    d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
+                    clipRule="evenodd"
+                  />
+                </svg>
+              </a>
+            ) : (
+              <Link href={prevLink()}>
+                <a className="relative inline-flex items-center px-2 py-2 text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-l-md hover:bg-gray-50">
+                  <span className="sr-only">Previous</span>
+                  <svg
+                    className="w-5 h-5"
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 20 20"
+                    fill="currentColor"
+                    aria-hidden="true"
+                  >
+                    <path
+                      fillRule="evenodd"
+                      d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
+                      clipRule="evenodd"
+                    />
+                  </svg>
+                </a>
+              </Link>
+            )}
+
+            {pageRange().map((pageNumber) => {
+              return (
+                <Link href={`/item?page=${pageNumber}&per=10`} key={pageNumber}>
+                  <a
+                    className={
+                      `relative inline-flex items-center px-4 py-2 text-sm font-medium border border-gray-300 hover:bg-gray-50 ` +
+                      (pagination.current_page == pageNumber
+                        ? `text-secondary bg-primary`
+                        : `text-gray-700 bg-white`)
+                    }
+                  >
+                    {pageNumber}
+                  </a>
+                </Link>
+              );
+            })}
+            {pagination.is_last_page || pagination.size === 0 ? (
+              <a
+                href="#"
+                className="relative inline-flex items-center px-2 py-2 text-sm font-medium text-gray-500 bg-white border border-gray-300 opacity-50 rounded-r-md hover:bg-gray-50"
               >
-                <path
-                  fillRule="evenodd"
-                  d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
-                  clipRule="evenodd"
-                />
-              </svg>
-            </a>
+                <span className="sr-only">Next</span>
+                <svg
+                  className="w-5 h-5"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 20 20"
+                  fill="currentColor"
+                  aria-hidden="true"
+                >
+                  <path
+                    fillRule="evenodd"
+                    d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
+                    clipRule="evenodd"
+                  />
+                </svg>
+              </a>
+            ) : (
+              <Link href={nextLink()}>
+                <a className="relative inline-flex items-center px-2 py-2 text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-r-md hover:bg-gray-50">
+                  <span className="sr-only">Next</span>
+                  <svg
+                    className="w-5 h-5"
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 20 20"
+                    fill="currentColor"
+                    aria-hidden="true"
+                  >
+                    <path
+                      fillRule="evenodd"
+                      d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
+                      clipRule="evenodd"
+                    />
+                  </svg>
+                </a>
+              </Link>
+            )}
           </nav>
         </div>
       </div>

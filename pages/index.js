@@ -87,8 +87,10 @@ function IndexPage({ data, success, message }) {
             Muslim]."
           </blockquote>
         </div>
-        <div className="max-w-md">
-          <SearchItemForm />
+        <div>
+          <div className="max-w-md mx-auto">
+            <SearchItemForm />
+          </div>
         </div>
         <div>
           <h2 className="text-2xl font-bold font-display">Baru-baru ini</h2>
