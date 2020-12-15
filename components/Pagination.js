@@ -1,7 +1,7 @@
 import Link from "next/link";
 
 export default function Pagination({ pagination }) {
-
+  console.log(pagination);
   const prevLink = () => {
     if (pagination.is_first_page) {
       return "/item";
@@ -24,8 +24,8 @@ export default function Pagination({ pagination }) {
 
   return (
     <div className="flex flex-col items-center justify-between py-4 space-y-4 bg-white border-t border-gray-200 sm:px-6">
-      <div className="flex justify-start w-full text-center">
-        <p className="inline-flex flex-wrap space-x-1 text-sm text-gray-700">
+      <div className="flex justify-start w-full">
+        <p className="inline-flex flex-wrap justify-center w-full space-x-1 text-sm text-gray-700">
           <span>Menampilkan</span>
           <span className="font-semibold">{pagination.from}</span>
           <span>sampai</span>
@@ -45,7 +45,7 @@ export default function Pagination({ pagination }) {
             </a>
           </Link>
         )}
-        {pagination.is_last_page ? (
+        {pagination.is_last_page || pagination.size === 0 ? (
           <p></p>
         ) : (
           <Link href={nextLink()}>

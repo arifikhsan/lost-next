@@ -4,7 +4,7 @@ import Router from "next/router";
 function SearchItemForm({ initQuery }) {
   return (
     <Formik
-      initialValues={{ query: initQuery }}
+      initialValues={{ query: initQuery || "" }}
       onSubmit={(values) => {
         Router.push(`/item?query=${values.query}`);
       }}

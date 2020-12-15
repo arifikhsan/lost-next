@@ -43,7 +43,7 @@ export default class Home extends Component {
           })}
           {isEmpty(items.data) && (
             <div className="py-6 text-center">
-              <h1 className="text-3xl font-bold text-yellow-500 font-display">
+              <h1 className="text-3xl font-bold text-red-500 font-display">
                 Laporan tidak ditemukan 😭😭
               </h1>
               <p className="mt-4 text-sm">Coba ulangi dengan kata kunci lain</p>
