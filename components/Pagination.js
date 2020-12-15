@@ -144,11 +144,11 @@ export default function Pagination({ pagination, searchQuery }) {
                 )}
 
                 {pageRange().map((pageNumber) => {
+                  params.page = pageNumber;
                   const queryParam = new URLSearchParams(params);
-                  queryParam.page = pageNumber;
 
                   return (
-                    <Link href={`${url}?${queryParam}`} key={pageNumber}>
+                    <Link href={`${url}?${queryParam.toString()}`} key={pageNumber}>
                       <a
                         className={
                           `relative inline-flex items-center px-4 py-2 text-sm font-medium border border-gray-300 hover:bg-gray-50 ` +
