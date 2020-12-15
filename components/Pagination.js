@@ -1,32 +1,49 @@
-import { range, times } from "lodash";
+import { range } from "lodash";
 import Link from "next/link";
 
-export default function Pagination({ pagination }) {
+export default function Pagination({ pagination, searchQuery }) {
+  console.log(pagination);
+  let url = "/item";
+  let params = { per: 10 };
+
+  if (searchQuery) {
+    params.query = searchQuery;
+  }
+
   const prevLink = () => {
     if (pagination.is_first_page) {
-      return "/item";
+      return url;
     } else if (pagination.prev_page) {
-      return `/item?page=${pagination.prev_page}&per=10`;
+      params.page = pagination.prev_page;
+      const queryParam = new URLSearchParams(params);
+      return `${url}?${queryParam}`;
     } else {
-      return "/item";
+      return url;
     }
   };
 
   const nextLink = () => {
     if (pagination.is_last_page) {
-      return "/item";
+      return url;
     } else if (pagination.next_page) {
-      return `/item?page=${pagination.next_page}&per=10`;
+      params.page = pagination.next_page;
+      const queryParam = new URLSearchParams(params);
+      return `${url}?${queryParam}`;
     } else {
-      return "/item";
+      return url;
     }
   };
 
   const pageRange = () => {
-    if (pagination.current_page == 1 && pagination.current_page + 4 <= 5) {
-      return range(1, 5 + 1);
+    if (pagination.total_pages == 1) {
+      return range(1, 2);
     } else if (pagination.total_pages < 5) {
-      return range(1, pagination.total_pages);
+      return range(1, pagination.total_pages + 1);
+    } else if (
+      pagination.current_page == 1 &&
+      pagination.current_page + 4 <= 5
+    ) {
+      return range(1, 5 + 1);
     } else if (pagination.total_pages == 5) {
       return range(1, pagination.total_pages + 1);
     } else if (pagination.current_page - 2 == 0) {
@@ -127,11 +144,11 @@ export default function Pagination({ pagination }) {
                 )}
 
                 {pageRange().map((pageNumber) => {
+                  const queryParam = new URLSearchParams(params);
+                  queryParam.page = pageNumber;
+
                   return (
-                    <Link
-                      href={`/item?page=${pageNumber}&per=10`}
-                      key={pageNumber}
-                    >
+                    <Link href={`${url}?${queryParam}`} key={pageNumber}>
                       <a
                         className={
                           `relative inline-flex items-center px-4 py-2 text-sm font-medium border border-gray-300 hover:bg-gray-50 ` +

@@ -1,7 +1,6 @@
 import Layout from "components/Layout";
 import SearchItemForm from "components/SearchItemForm";
 import SEO from "components/Seo";
-import { getItems } from "repository/item-repository";
 import { getSiteMetaData } from "utils/helpers";
 import Pagination from "components/Pagination";
 import ItemCard from "components/ItemCard";
@@ -50,7 +49,7 @@ export default class Home extends Component {
             </div>
           )}
         </div>
-        <Pagination pagination={items.pagination} />
+        <Pagination pagination={items.pagination} searchQuery={this.props.query.query} />
       </Layout>
     );
   }

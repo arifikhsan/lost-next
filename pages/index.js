@@ -86,9 +86,7 @@ function IndexPage({ data, success, message }) {
             jika tidak, maka barang itu terserah kepadamu” [HR. al-Bukhari dan
             Muslim]."
           </blockquote>
-        </div>
-        <div>
-          <div className="max-w-md mx-auto">
+          <div className="max-w-md mx-auto mt-6">
             <SearchItemForm />
           </div>
         </div>
