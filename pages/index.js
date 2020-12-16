@@ -102,7 +102,7 @@ function IndexPage({ data, success, message }) {
         </div>
         <div>
           <div className="">
-            <div className="flex justify-center space-x-2 overflow-y-auto">
+            <div className="flex justify-start space-x-2 overflow-y-auto md:justify-center">
               {times(9).map((i) => {
                 return (
                   <div
