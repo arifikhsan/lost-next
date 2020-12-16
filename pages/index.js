@@ -91,6 +91,71 @@ function IndexPage({ data, success, message }) {
           </div>
         </div>
         <div>
+          <ul className="flex space-x-6">
+            <li className="flex flex-col items-center space-y-1">
+              <div className="relative p-1 rounded-full bg-gradient-to-tr from-yellow-400 to-fuchsia-600">
+                <a
+                  className="block p-1 transition transform bg-white rounded-full hover:-rotate-6"
+                  href="#"
+                >
+                  <img
+                    className="w-24 h-24 rounded-full"
+                    src="https://placekitten.com/200/200"
+                    alt="cute kitty"
+                  />
+                </a>
+                <button className="absolute bottom-0 flex items-center justify-center w-8 h-8 font-mono text-2xl font-semibold text-white bg-blue-500 border-4 border-white rounded-full right-1 hover:bg-blue-700">+</button>
+              </div>
+              <a href="#">You</a>
+            </li>
+            <li className="flex flex-col items-center space-y-1">
+              <div className="p-1 rounded-full bg-gradient-to-tr from-yellow-400 to-fuchsia-600">
+                <a
+                  className="block p-1 transition transform bg-white rounded-full hover:-rotate-6"
+                  href="#"
+                >
+                  <img
+                    className="w-24 h-24 rounded-full"
+                    src="https://placekitten.com/200/201"
+                    alt="cute kitty"
+                  />
+                </a>
+              </div>
+              <a href="#">meawwww</a>
+            </li>
+            <li className="flex flex-col items-center space-y-1">
+              <div className="p-1 rounded-full bg-gradient-to-tr from-yellow-400 to-fuchsia-600">
+                <a
+                  className="block p-1 transition transform bg-white rounded-full hover:-rotate-6"
+                  href="#"
+                >
+                  <img
+                    className="w-24 h-24 rounded-full"
+                    src="https://placekitten.com/200/202"
+                    alt="cute kitty"
+                  />
+                </a>
+              </div>
+              <a href="#">smuggels</a>
+            </li>
+            <li className="flex flex-col items-center space-y-1">
+              <div className="p-1 rounded-full bg-gradient-to-tr from-yellow-400 to-fuchsia-600">
+                <a
+                  className="block p-1 transition transform bg-white rounded-full hover:-rotate-6"
+                  href="#"
+                >
+                  <img
+                    className="w-24 h-24 rounded-full"
+                    src="https://placekitten.com/200/203"
+                    alt="cute kitty"
+                  />
+                </a>
+              </div>
+              <a href="#">kitten</a>
+            </li>
+          </ul>
+        </div>
+        <div>
           <h2 className="text-2xl font-bold font-display">Baru-baru ini</h2>
           <div className="mt-4">
             {isLoading ? <p>Loading...</p> : <ListItem items={entries.data} />}
