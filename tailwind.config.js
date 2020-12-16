@@ -1,3 +1,5 @@
+const colors = require("tailwindcss/colors");
+
 const defaultSans = [
   "system-ui",
   "-apple-system",
@@ -30,6 +32,7 @@ module.exports = {
         primary: "#2F7DF1",
         secondary: "#F0F6FF",
         accent: "#30D876",
+        fuchsia: colors.fuchsia,
       },
       fontSize: {
         "7xl": "4.5rem",
@@ -70,10 +73,10 @@ module.exports = {
     require("@tailwindcss/typography"),
     require("@tailwindcss/custom-forms"),
   ],
-  future: {
-    removeDeprecatedGapUtilities: true,
-    purgeLayersByDefault: true,
-    defaultLineHeights: true,
-    standardFontWeights: true,
-  },
+  // future: {
+  //   removeDeprecatedGapUtilities: true,
+  //   purgeLayersByDefault: true,
+  //   defaultLineHeights: true,
+  //   standardFontWeights: true,
+  // },
 };
