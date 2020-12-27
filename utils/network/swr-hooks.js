@@ -25,6 +25,10 @@ export function useItemsSearch(query) {
   return swr(`/items/search?query=${query}`);
 }
 
+export function useGroups() {
+  return swr(`/groups`);
+}
+
 function swr(url) {
   const { data, error } = useSWR(
     process.env.NEXT_PUBLIC_LOST_API_URL + url,

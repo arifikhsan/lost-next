@@ -12,6 +12,7 @@ import {
   useItemsWithReward,
   useItemsLost,
   useItemsFound,
+  useGroups,
 } from "utils/network/swr-hooks";
 import SearchItemForm from "components/SearchItemForm";
 
@@ -78,6 +79,7 @@ function IndexPage({ data, success, message }) {
   const entriesReward = useItemsWithReward();
   const entriesLost = useItemsLost();
   const entriesFound = useItemsFound();
+  const entriesGroup = useGroups();
 
   return (
     <Layout>
@@ -101,33 +103,46 @@ function IndexPage({ data, success, message }) {
           </div>
         </div>
         <div>
-          <div className="">
-            <div className="flex justify-start space-x-2 overflow-y-auto md:justify-center">
-              {times(9).map((i) => {
-                return (
-                  <div
-                    key={i}
-                    className="flex flex-col items-center flex-shrink-0 space-y-1"
-                  >
-                    <div className="relative p-1 rounded-full bg-gradient-to-tr from-yellow-400 to-fuchsia-600">
-                      <a
-                        className="block p-1 transition transform bg-white rounded-full hover:-rotate-6"
-                        href="#"
-                      >
-                        <img
-                          className="w-16 h-16 rounded-full"
-                          src={`https://placekitten.com/200/${200 + i}`}
-                          alt="cute kitty"
-                        />
+          <h2 className="text-2xl font-bold font-display">Grup</h2>
+          <div className="flex justify-start pb-2 mt-4 space-x-2 overflow-y-auto md:justify-center">
+            {entriesGroup.isLoading ? (
+              <p>Loading...</p>
+            ) : (
+              <>
+                {entriesGroup.entries.data.map((group) => {
+                  return (
+                    <div
+                      key={group.id}
+                      className="flex flex-col items-center flex-shrink-0 space-y-1"
+                    >
+                      <div className="relative p-1 rounded-full bg-gradient-to-tr from-yellow-400 to-fuchsia-600">
+                        <a
+                          className="block p-1 transition transform bg-white rounded-full hover:-rotate-6"
+                          href="#"
+                        >
+                          {isNil(group.avatar) ? (
+                            <img
+                              className="w-16 h-16 rounded-full"
+                              src="https://placekitten.com/200/200"
+                              alt="cute kitty"
+                            />
+                          ) : (
+                            <img
+                              className="w-16 h-16 rounded-full"
+                              src={group.avatar.original}
+                              alt={`@${group.username}`}
+                            />
+                          )}
+                        </a>
+                      </div>
+                      <a href="#" className="text-xs">
+                        @{group.username}
                       </a>
                     </div>
-                    <a href="#" className="text-sm">
-                      You
-                    </a>
-                  </div>
-                );
-              })}
-            </div>
+                  );
+                })}
+              </>
+            )}
           </div>
         </div>
         <div>
